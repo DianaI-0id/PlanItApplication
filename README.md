@@ -29,6 +29,8 @@ Avalonia UI, EF Core, Python, Railway, Google API
   19. Оформление подписки
   20. Просмотр доступных для обмена бонусных карт
 
+### Пример интерфейса некоторых окон:
+
 ![image](https://github.com/user-attachments/assets/d92bf955-76b3-4030-9c41-e3896eae56e6)
 
 ![image](https://github.com/user-attachments/assets/6b0712cb-bf77-4453-adfa-47d14e061788)
