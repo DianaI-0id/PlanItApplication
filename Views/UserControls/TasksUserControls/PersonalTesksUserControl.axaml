@@ -1,0 +1,212 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+			 x:CompileBindings="False"
+             x:Class="Diploma_Ishchenko.PersonalTesksUserControl">
+	
+	<Grid ShowGridLines="False">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="*"/>
+			<RowDefinition Height="Auto"/>
+		</Grid.RowDefinitions>
+		
+		<TextBlock Text="Мои задачи" Classes="Title" Grid.Row="0" IsVisible="{Binding !IsGoalTask}"
+				   Foreground="{DynamicResource PrimaryForeground}"/>
+
+		<!--Выводим когда задач нет-->
+		<StackPanel Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center"
+					IsVisible="{Binding !IsTasksExists}">
+			<Grid Width="310" Height="310">
+				<Ellipse Fill="{DynamicResource ButtonBackgroundGradient}"/>
+				<Ellipse Width="300" Height="300">
+					<Ellipse.Fill>
+						<ImageBrush Source="{DynamicResource RelaxIllustration}" Stretch="UniformToFill"/>
+					</Ellipse.Fill>
+				</Ellipse>
+			</Grid>
+
+			<StackPanel HorizontalAlignment="Center" Margin="0 10 0 0">
+				<TextBlock Text="Задачи отсутствуют" FontWeight="DemiBold"
+					   HorizontalAlignment="Center" FontSize="20"
+					   TextAlignment="Center"
+					   Foreground="{DynamicResource PrimaryForeground}"/>
+
+				<TextBlock Text="Вы можете добавить новую задачу, нажав + в нижнем левом углу окна"
+						   HorizontalAlignment="Center" FontSize="15"
+						   TextAlignment="Center" TextWrapping="Wrap"
+						   Foreground="{DynamicResource PrimaryForeground}"/>
+			</StackPanel>
+		</StackPanel>
+
+		<!--Выводим когда задачи есть-->
+		<Grid Grid.Row="1" ShowGridLines="False" Margin="10 0 0 0"  IsVisible="{Binding IsTasksExists}">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="*"/>
+				<ColumnDefinition Width="*"/>
+				<ColumnDefinition Width="*"/>
+			</Grid.ColumnDefinitions>
+
+			<!--Через ItemsSource выводить список всех разделов пользователя-->
+			<ComboBox x:Name="SectionComboBox"
+					  PlaceholderText="Фильтрация (раздел)" HorizontalAlignment="Stretch"
+					  SelectionChanged="SectionFilter_SelectionChanged"
+					  Margin="5" Grid.Column="0"/>
+
+			<ComboBox PlaceholderText="Сортировка (приоритет)" HorizontalAlignment="Stretch"
+					  SelectionChanged="PrioritySort_SelectionChanged"
+					  Margin="5" Grid.Column="1">
+				<ComboBoxItem Content="По возрастанию приоритета"/>
+				<ComboBoxItem Content="По убыванию приоритета"/>
+			</ComboBox>
+
+			<ComboBox PlaceholderText="Дата выполнения" HorizontalAlignment="Stretch"
+					  SelectionChanged="DateSort_SelectionChanged"
+					  Margin="5" Grid.Column="2">
+				<ComboBoxItem Content="Сначала ближайшие"/>
+				<ComboBoxItem Content="Сначала поздние"/>
+			</ComboBox>
+		</Grid>
+
+		<!--Под ним 2 пункта меню - текущие задачи и выполненные-->
+		<Grid Grid.Row="2" ShowGridLines="False" Margin="10 5 10 5"
+			  ColumnDefinitions="*, *"
+			  IsVisible="{Binding IsTasksExists}">
+			<Button Content="Посмотреть текущие задачи" Grid.Column="0" Margin="0 0 10 0"
+					HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"
+					Click="ShowCurrentTasks_ButtonClick"/>
+
+			<Button Content="Посмотреть выполненные задачи" Grid.Column="1" Margin="10 0 0 0"
+					HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"
+					Click="ShowCompletedTasks_ButtonClick"/>
+		</Grid>
+
+		<ListBox ItemsSource="{Binding TasksCollection}" Grid.Row="3" Margin="10"
+				 ScrollViewer.VerticalScrollBarVisibility="Hidden"
+				 Background="Transparent">
+			<ListBox.ItemTemplate>
+				<DataTemplate>
+					<Border Background="{DynamicResource SideMenuGradient}"
+							Padding="10"
+							CornerRadius="10">
+
+						<Border.Styles>
+							<Style Selector="Border">
+								<Setter Property="BoxShadow"
+										Value="{Binding Source={StaticResource ShadowColor}, 
+										  Converter={StaticResource ShadowConverter}}"/>
+							</Style>
+						</Border.Styles>
+						
+						<Grid ShowGridLines="False" 
+							  ColumnDefinitions="Auto, *, Auto, Auto">
+							<!--Индикатор приоритета-->
+							<Ellipse Width="20" Height="20" Grid.Column="0" Margin="10"
+									 Fill="{Binding PriorityColor}" HorizontalAlignment="Center"/>
+
+							<!--Наименование и описание задачи-->
+							<StackPanel Orientation="Vertical" Spacing="10" Grid.Column="1" Margin="10">
+								<TextBlock Text="{Binding Title}" FontWeight="Bold" TextWrapping="Wrap" TextAlignment="Left"
+										   Foreground="{DynamicResource PrimaryForeground}"/>			
+								<TextBlock Text="{Binding Description}" TextWrapping="Wrap" TextAlignment="Left"
+										   Foreground="{DynamicResource PrimaryForeground}"/>
+
+								<!--Также выведем раздел-->
+								<StackPanel Orientation="Horizontal">
+									<TextBlock Text="# " Foreground="{Binding PriorityColor}" FontWeight="Bold"/>
+									<TextBlock Text="{Binding Section}" Foreground="{Binding PriorityColor}" FontWeight="Bold"/>
+								</StackPanel>
+							</StackPanel>
+
+							<StackPanel Orientation="Vertical" Grid.Column="2" Margin="20 10 20 10">
+								<TextBlock Text="Выполнить до: " FontWeight="DemiBold" HorizontalAlignment="Center" Foreground="{DynamicResource PrimaryForeground}"/>
+								<TextBlock Text="{Binding ProbableCompleteDate}" Grid.Column="2" Margin="20 10 20 10" Foreground="{DynamicResource PrimaryForeground}"/>
+								
+								<TextBlock Text="Просрочено" HorizontalAlignment="Center"
+										   Foreground="{DynamicResource ButtonBackgroundGradient}" FontWeight="Bold"
+										   IsVisible="{Binding IsOverdue}"/>
+
+								<TextBlock Text="Выполнено" HorizontalAlignment="Center"
+										   Foreground="{DynamicResource ButtonBackgroundGradient}" FontWeight="Bold"
+										   IsVisible="{Binding IsCompleted}"/>
+							</StackPanel>
+
+							
+							<!--Если задача выполнена, для нее контекстное меню не отображается-->
+							<Button Background="{DynamicResource ItemBackgroundGradient}" Grid.Column="3"
+									CornerRadius="10"
+									Classes="ContextMenuButton"
+									Click="OpenContextMenuButton_Click"
+									DataContext="{Binding}">
+								<Button.ContextMenu>
+									<ContextMenu IsVisible="{Binding !IsCompleted}" Background="{DynamicResource SideMenuGradient}">
+										<MenuItem Header="Редактировать" Click="EditTask_ButtonClick" Foreground="{DynamicResource ButtonBackgroundGradient}"/>
+										<MenuItem Header="Отметить как выполненное" Click="MarkTaskAsCompleted_ButtonClick" Foreground="{DynamicResource ButtonBackgroundGradient}"/>
+										<MenuItem Header="Удалить" Click="DeleteTask_ContextMenuClick" CommandParameter="{Binding}" Foreground="{DynamicResource ButtonBackgroundGradient}"/>
+									</ContextMenu>
+								</Button.ContextMenu>
+
+								<Svg Path="{DynamicResource OptionsIcon}" Width="10"
+									 VerticalAlignment="Center" Margin="10"/>
+							</Button>
+
+						</Grid>
+					</Border>
+				</DataTemplate>
+			</ListBox.ItemTemplate>
+		</ListBox>
+
+		<Border Grid.Row="4" Background="{DynamicResource SideMenuGradient}"
+				CornerRadius="10" Margin="10">
+
+			<Border.Styles>
+				<Style Selector="Border">
+					<Setter Property="BoxShadow"
+							Value="{Binding Source={StaticResource ShadowColor}, 
+										  Converter={StaticResource ShadowConverter}}"/>
+				</Style>
+			</Border.Styles>
+			
+			<StackPanel Orientation="Horizontal" Margin="10" Spacing="10">
+				<Button 
+						CornerRadius="20"
+						VerticalAlignment="Bottom"
+						Foreground="{DynamicResource ButtonBackgroundGradient}"
+						ToolTip.Tip="Добавить задачу"
+						Click="AddTask_ButtonClick">
+
+						<Svg Path="{DynamicResource AddIcon}"
+							 Width="15" Height="15"/>
+				</Button>
+
+				<Button Margin="0 0 0 0"
+						IsVisible="{Binding IsGoalTask}"
+						CornerRadius="20"
+						VerticalAlignment="Bottom"
+						Foreground="{DynamicResource ButtonBackgroundGradient}"
+						ToolTip.Tip="Редактировать цель"
+						Click="EditCurrentGoal_ButtonClick">
+
+					<Svg Path="{DynamicResource EditIcon}"
+						 Width="15" Height="15"/>
+				</Button>
+
+				<Button Margin="0 0 0 0"
+						IsVisible="{Binding IsGoalTask}"
+						CornerRadius="20"
+						VerticalAlignment="Bottom"
+						Foreground="{DynamicResource ButtonBackgroundGradient}"
+						ToolTip.Tip="Удалить цель"
+						Click="DeleteCurrentGoal_ButtonClick">
+
+						<Svg Path="{DynamicResource DeleteIcon}"
+							 Width="15" Height="15"/>
+				</Button>
+			</StackPanel>	
+		</Border>	
+	</Grid>
+</UserControl>

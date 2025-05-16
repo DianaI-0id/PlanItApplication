@@ -1,0 +1,54 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="450"
+        Width="400" Height="450"
+		SystemDecorations="None"
+		WindowStartupLocation="CenterScreen"
+		Background="Transparent"
+		x:CompileBindings="False"
+		x:Class="Diploma_Ishchenko.EditGoalDialog"
+        Title="EditGoalDialog">
+	
+	<Border CornerRadius="20" Background="{DynamicResource PrimaryBackground}"
+			BorderBrush="{DynamicResource ButtonBackgroundGradient}"
+			ClipToBounds="True"
+			BorderThickness="1">
+		
+		<Grid ShowGridLines="False">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="Auto"/>
+				<RowDefinition Height="*"/>
+				<RowDefinition Height="Auto"/>
+			</Grid.RowDefinitions>
+
+			<StackPanel Grid.Row="0" Background="{DynamicResource ButtonBackgroundGradient}">
+				<TextBlock Text="Редактирование цели" Classes="Title" Foreground="{DynamicResource PrimaryBackground}"/>
+			</StackPanel>
+
+			<!--Поля для заполнения-->
+			<StackPanel Grid.Row="1" Margin="10" Spacing="10">
+				
+				<TextBox Text="{Binding _goal.Title}" Classes="Custom"
+						 Name="GoalTitleTextBox"/>
+				
+				<TextBox Text="{Binding _goal.Description}" Classes="Custom" Height="150"
+						 TextWrapping="Wrap"
+						 Name="GoalDescriptionTextBox"/>
+				
+				<TextBlock Text="Все изменения отобразятся после закрытия данного окна"
+						   TextWrapping="Wrap" Margin="10" Foreground="{DynamicResource PrimaryForeground}"/>
+
+				<TextBlock Name="ErrorMessage" Foreground="Red"
+						   TextWrapping="Wrap" Margin="10"/>
+			</StackPanel>
+
+			<!--Кнопки-->
+			<StackPanel Grid.Row="2" Margin="10" Spacing="10" Orientation="Horizontal">
+				<Button Content="Редактировать" Click="EditPersonalGoal_ButtonClick"/>
+				<Button Content="Отмена" Click="Close_ButtonClick"/>
+			</StackPanel>
+		</Grid>
+	</Border>
+</Window>

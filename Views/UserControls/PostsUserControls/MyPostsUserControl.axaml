@@ -1,0 +1,205 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="600"
+			 x:CompileBindings="False"
+             x:Class="Diploma_Ishchenko.MyPostsUserControl">
+	
+	<Grid ShowGridLines="False">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="*"/>
+			<RowDefinition Height="Auto"/>
+		</Grid.RowDefinitions>
+
+		<TextBlock Text="Мои посты" Classes="Title" Grid.Row="0" IsVisible="{Binding IsAuthorizedUser}"
+				   Foreground="{DynamicResource PrimaryForeground}"/>
+		<TextBlock Text="{Binding User.Nickname, StringFormat=Посты пользователя {0}}" Classes="Title" Grid.Row="0"
+				   IsVisible="{Binding !IsAuthorizedUser}" Foreground="{DynamicResource PrimaryForeground}"/>
+
+		<!-- Оверлей для увеличенного изображения -->
+		<Border x:Name="ImageOverlay"
+				Grid.Row="2"
+				Grid.RowSpan="3"
+				ZIndex="1000"
+				Background="#80000000"
+				IsVisible="False"
+				HorizontalAlignment="Center"
+				VerticalAlignment="Center"
+				Padding="20"
+				PointerPressed="ImageOverlay_PointerPressed">
+			<Image x:Name="EnlargedImage"
+				   Stretch="Uniform"
+				   MaxWidth="600"
+				   MaxHeight="400"/>
+		</Border>
+
+		<Grid Grid.Row="1" ShowGridLines="False">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="2*"/>
+				<ColumnDefinition Width="*"/>
+			</Grid.ColumnDefinitions>
+			
+			<TextBox Watermark="Поиск..." Grid.Column="0" Margin="20 0 10 0" Name="SearchText"
+					 KeyUp="SearchPosts_KeyUp" CornerRadius="10" VerticalAlignment="Center" Padding="10"/>
+
+			<ComboBox PlaceholderText="Сортировка" Grid.Column="1" HorizontalAlignment="Stretch" Margin="10 10 20 10"
+					  VerticalAlignment="Center"
+					  SelectionChanged="Sort_SelectionChanged" CornerRadius="10" Padding="12">
+				<ComboBoxItem Content="Сначала новые"/>
+				<ComboBoxItem Content="Сначала старые"/>
+			</ComboBox>
+			
+		</Grid>
+
+		<!--Дальше будет большой листбокс с постами пользователей-->
+		<ListBox Grid.Row="2" ItemsSource="{Binding PostsCollection}" Background="Transparent">
+			<ListBox.Styles>
+				<!-- Отключаем все трансформации -->
+				<Style Selector="ListBoxItem:pointerover /template/ ContentPresenter">
+					<Setter Property="RenderTransform" Value="scale(1)"/>
+				</Style>
+
+				<Style Selector="ListBoxItem:pressed /template/ ContentPresenter">
+					<Setter Property="RenderTransform" Value="scale(1)"/>
+				</Style>
+			</ListBox.Styles>
+
+			<ListBox.ItemTemplate>
+				<DataTemplate>
+					<!--Заливка-->
+					<Border Background="{DynamicResource SideMenuGradient}" Padding="10"
+                            CornerRadius="10" Margin="10">
+						<Border.Styles>
+							<Style Selector="Border">
+								<Setter Property="BoxShadow"
+										Value="{Binding Source={StaticResource ShadowColor}, 
+										  Converter={StaticResource ShadowConverter}}"/>
+							</Style>
+						</Border.Styles>
+						
+						<!--Указываем данные для вывода-->
+						<StackPanel Margin="10" Background="Transparent" >
+							<!--Фото профиля и никнейм-->
+							<StackPanel Orientation="Horizontal" Spacing="10" 
+										Background="Transparent">
+								<!--Фотка-->
+								<Border CornerRadius="50" ClipToBounds="True">
+									<Image Source="{Binding User.AvatarImage}"
+										   Width="30" Height="30"
+										   Stretch="UniformToFill"/>
+								</Border>
+								<!--Никнейм-->
+								<TextBlock Text="{Binding User.Nickname}"  Foreground="{DynamicResource PrimaryForeground}" VerticalAlignment="Center"/>
+							</StackPanel>
+
+							<!--Тут будет заголовок поста-->
+							<TextBlock Text="{Binding Title}" TextWrapping="Wrap"  Foreground="{DynamicResource PrimaryForeground}" TextAlignment="Justify" Margin="40 30 0 0" FontSize="15" FontWeight="ExtraBold"/>
+
+							<TextBlock Text="{Binding Content}" TextWrapping="Wrap"  Foreground="{DynamicResource PrimaryForeground}" TextAlignment="Left" Margin="40 10 0 0" FontSize="12"
+									   LineHeight="20"/>
+
+
+							<!--Тут будет листбокс если есть фотки у поста-->
+							<ListBox ItemsSource="{Binding PostImages}"
+									 Margin="40 10 0 0"
+									 MaxHeight="250"
+									 ScrollViewer.HorizontalScrollBarVisibility="Visible"
+									 ScrollViewer.VerticalScrollBarVisibility="Disabled"
+									 Loaded="ImageListBox_Loaded">
+								<ListBox.ItemTemplate>
+									<DataTemplate>
+										<Border CornerRadius="5" ClipToBounds="True" BorderBrush="{DynamicResource ButtonBackgroundGradient}" BorderThickness="2"
+                                                MaxHeight="200" Margin="20">
+											<Image Source="{Binding ImageBitmap}" Margin="5"
+												   Cursor="Hand"
+												   PointerPressed="Image_PointerPressed"
+												   Stretch="UniformToFill"/>
+										</Border>
+									</DataTemplate>
+								</ListBox.ItemTemplate>
+								<ListBox.ItemsPanel>
+									<ItemsPanelTemplate>
+										<WrapPanel Orientation="Horizontal"
+												   Height="220" Margin="10 0 10 0"/>
+									</ItemsPanelTemplate>
+								</ListBox.ItemsPanel>
+							</ListBox>
+
+							<TextBlock Text="{Binding CreatedAt, StringFormat='{}{0:dd MMMM yyyy HH:mm}'}"  Foreground="{DynamicResource PrimaryForeground}"
+                                       HorizontalAlignment="Right" FontWeight="Bold" Margin="0 20 10 0"/>
+
+
+							<!--Кнопки показа-скрытия комментариев-->
+							<StackPanel Margin="10" Spacing="10">
+								<StackPanel Orientation="Horizontal">
+									<TextBlock Text="Комментарии" VerticalAlignment="Center" Margin="0 0 10 0"
+											    Foreground="{DynamicResource PrimaryForeground}"/>
+									<Button Content="Показать" Classes="TransparentButton"
+											IsVisible="{Binding !IsCommentsVisible}"
+											Click="ShowComments_ButtonClick"/>
+
+									<Button Content="Скрыть" Classes="TransparentButton"
+											IsVisible="{Binding IsCommentsVisible}"
+											Click="HideComments_ButtonClick"/>
+								</StackPanel>
+							</StackPanel>
+
+							<!--Листбокс для списка комментариев-->
+							<ListBox ItemsSource="{Binding PostComments}" Margin="40 10 0 0"
+									 IsVisible="{Binding IsCommentsVisible}">
+								<ListBox.ItemTemplate>
+									<DataTemplate>
+										<Border Background="Transparent" Padding="10" Margin="0" CornerRadius="10">
+											<StackPanel Orientation="Vertical" Spacing="5">
+												<!-- Аватар пользователя -->
+												<StackPanel Orientation="Horizontal" Spacing="10">
+													<Border CornerRadius="50" ClipToBounds="True"
+															Width="30" Height="30">
+														<Image Source="{Binding User.AvatarImage}"
+															   Stretch="UniformToFill"/>
+													</Border>
+													<TextBlock Text="{Binding User.Nickname}"
+															    Foreground="{DynamicResource PrimaryForeground}"
+															   VerticalAlignment="Center"
+															   FontWeight="Bold" FontSize="11"/>
+												</StackPanel>
+
+
+												<!-- Контент комментария -->
+												<StackPanel>
+													<TextBlock Text="{Binding Content}" Margin="40 0 0 0"
+															    Foreground="{DynamicResource PrimaryForeground}"
+															  TextWrapping="Wrap" FontSize="12" TextAlignment="Left"/>
+													<TextBlock Text="{Binding CreatedAt, StringFormat='{}{0:dd MMMM yyyy HH:mm}'}"
+															    Foreground="{DynamicResource PrimaryForeground}"
+															  FontSize="10" FontWeight="Bold" Margin="40 5 0 0"/>
+												</StackPanel>
+											</StackPanel>
+										</Border>
+									</DataTemplate>
+								</ListBox.ItemTemplate>
+							</ListBox>
+
+							
+						</StackPanel>
+					</Border>
+				</DataTemplate>
+			</ListBox.ItemTemplate>
+		</ListBox>
+		
+		<!--Кнопка Назад для возвращения в сообщество-->
+
+		<StackPanel Orientation="Horizontal" Grid.Row="3" Margin="10" Spacing="10">
+			<Button Content="Назад" Name="ButtonBack"
+				Click="Back_ButtonClick"/>
+
+			<Button Grid.Row="3" Content="Заблокировать доступ"
+					IsVisible="{Binding User.IsCurrentUserAdmin}"
+					Click="BanUser_ButtonClick"/>
+		</StackPanel>
+
+	</Grid>
+</UserControl>

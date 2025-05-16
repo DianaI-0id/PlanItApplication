@@ -1,0 +1,79 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:local="clr-namespace:Diploma_Ishchenko.Services.DataCheckers.MainSections"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:CompileBindings="False"
+			 x:Class="Diploma_Ishchenko.MainMenuUserControl">
+	
+	<Grid ShowGridLines="True">
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="2*"/>
+			<ColumnDefinition Width="*"/>
+		</Grid.ColumnDefinitions>
+
+		<StackPanel Orientation="Vertical" Margin="10" Grid.Column="0">
+
+			<StackPanel Orientation="Horizontal" Margin="10 0 0 0">
+				<TextBlock Text="С возвращением, " FontSize="16" FontWeight="Bold"/>
+				<TextBlock Text="Диана Ищенко" FontSize="16" FontWeight="Bold"/>
+				<TextBlock Text="!" FontSize="16" FontWeight="Bold" />
+			</StackPanel>
+
+			<StackPanel Orientation="Horizontal" Margin="10 0 0 0">
+				<TextBlock Text="Пора браться за задачи" FontSize="14" FontWeight="Bold"/>
+			</StackPanel>
+
+			<StackPanel Orientation="Horizontal" Margin="10 30 0 0">
+				<TextBlock Text="Основные разделы: " FontSize="20" FontWeight="Bold"/>
+			</StackPanel>
+
+			<ScrollViewer HorizontalScrollBarVisibility="Hidden"
+						  VerticalScrollBarVisibility="Auto"
+				Margin="-5 10 0 0">
+
+				<ListBox ItemsSource="{x:Static local:MainSectionsData.Sections}"
+						 Background="Transparent"
+						 BorderThickness="0">
+
+					<!-- Фиксированная высота всего ListBox -->
+					<ListBox.Height>300</ListBox.Height>
+					<!-- 2 строки × 120px + отступы -->
+
+					<ListBox.ItemsPanel>
+						<ItemsPanelTemplate>
+							<!-- UniformGrid с 2 колонками -->
+							<UniformGrid Rows="2" Columns="2"
+										 Height="{Binding #parent.ListBox.Height}"
+										 Width="500">
+								<!-- 2 столбца × 220px + отступы -->
+							</UniformGrid>
+						</ItemsPanelTemplate>
+					</ListBox.ItemsPanel>
+
+					<ListBox.ItemTemplate>
+						<DataTemplate>
+							<Border CornerRadius="10"
+									Width="220"
+									Height="120"
+									Background="{Binding BackgroundBrush}"
+									BoxShadow="5 5 10 0 Gray"
+									Padding="10"
+									Margin="0">
+								<!-- Добавляем отступ между элементами -->
+
+								<TextBlock Text="{Binding Title}"
+										   HorizontalAlignment="Center"
+										   VerticalAlignment="Center"
+										   FontSize="16"
+										   Foreground="White"/>
+							</Border>
+						</DataTemplate>
+					</ListBox.ItemTemplate>
+				</ListBox>
+			</ScrollViewer>
+
+		</StackPanel>
+	</Grid>
+</UserControl>

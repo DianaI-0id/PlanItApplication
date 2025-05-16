@@ -1,0 +1,295 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="1300"
+			 x:CompileBindings="False"
+             x:Class="Diploma_Ishchenko.UserProfileUserControl">
+
+	<ScrollViewer HorizontalScrollBarVisibility="Disabled"
+				  VerticalScrollBarVisibility="Hidden">
+		<Grid ShowGridLines="False">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="Auto"/>
+				<RowDefinition Height="Auto"/>
+				<RowDefinition Height="Auto"/>
+				<RowDefinition Height="Auto"/>
+				<RowDefinition Height="Auto"/>
+				<RowDefinition Height="Auto"/>
+			</Grid.RowDefinitions>
+
+			<TextBlock Text="Мой профиль" Classes="Title" Grid.Row="0"
+					   Foreground="{DynamicResource PrimaryForeground}"/>
+
+			<TextBlock Text="Данные профиля" Classes="Title" Grid.Row="1" FontSize="13" HorizontalAlignment="Center"
+					   Foreground="{DynamicResource PrimaryForeground}"/>
+
+			<!--Фотка, имя, ник, дата рождения-->
+			<Grid Grid.Row="2" ShowGridLines="False">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="Auto"/>
+					<ColumnDefinition Width="*"/>
+				</Grid.ColumnDefinitions>
+
+				<StackPanel Grid.Column="0" Spacing="0" Margin="10">
+					<Border Width="150" Height="150" Margin="10" CornerRadius="75"
+							BorderBrush="{DynamicResource ButtonBackgroundGradient}"
+							BorderThickness="1"
+							HorizontalAlignment="Center"
+							ClipToBounds="True"
+							VerticalAlignment="Center">
+						<Image Source="{Binding AvatarBitmap}"
+							   Stretch="UniformToFill"
+							   Width="150" Height="150"/>
+					</Border>
+					<Button Content="Изменить фото" HorizontalAlignment="Center"
+							Click="ChangeAvatar_ButtonClick"/>
+				</StackPanel>
+
+
+
+				<!--Поля-->
+				<StackPanel Grid.Column="1" Margin="10" Spacing="10" VerticalAlignment="Center">
+					
+					<TextBlock Text="АДМИНИСТРАТОР" Margin="10 0 0 0" FontWeight="Bold"
+							   Foreground="{DynamicResource ButtonBackgroundGradient}"
+							   IsVisible="{Binding IsAdmin}"/>
+					
+					<StackPanel Spacing="5">
+						<TextBlock Text="Имя пользователя" Margin="10 0 0 0" Foreground="{DynamicResource PrimaryForeground}"/>
+						<TextBox HorizontalAlignment="Stretch" Classes="Custom"
+								 Text="{Binding User.Username}"
+								 IsEnabled="{Binding IsFieldsEnabled, Mode=TwoWay}"
+								 Name="UsernameTextBox"/>
+					</StackPanel>
+
+					<!--Email по умолчанию False Все время-->
+					<StackPanel Spacing="5">
+						<TextBlock Text="Email" Margin="10 0 0 0" Foreground="{DynamicResource PrimaryForeground}"/>
+						<TextBox HorizontalAlignment="Stretch" Classes="Custom"
+								 Text="{Binding User.Email}"
+								 IsEnabled="False"/>
+					</StackPanel>
+
+					<StackPanel Spacing="5">
+						<TextBlock Text="Nickname" Margin="10 0 0 0" Foreground="{DynamicResource PrimaryForeground}"/>
+						<TextBox HorizontalAlignment="Stretch" Classes="Custom"
+								 Text="{Binding User.Nickname}"
+								 IsEnabled="{Binding IsFieldsEnabled, Mode=TwoWay}"
+								 Name="NicknameTextBox"/>
+						
+						<TextBlock Foreground="Red"
+								   Name="UserDataErrorMessage" Margin="10 0 0 0" IsVisible="False"/>
+					</StackPanel>
+
+				</StackPanel>
+			</Grid>
+
+			<!--тут будет отдельной строкой поле биографии-->
+			<TextBox Watermark="О себе" Grid.Row="3" Margin="20 20 20 20"
+					 Classes="Custom" Height="150" TextWrapping="Wrap"
+					 Text="{Binding User.Biography}"
+					 IsEnabled="{Binding IsFieldsEnabled, Mode=TwoWay}"
+					 Name="BiographyTextBox"/>
+
+			<!--Весь остальной контент-->
+			<StackPanel Orientation="Vertical" Grid.Row="4">
+
+				<!--Кнопки для редактирования-->
+				<!--Кнопки подтверждения и отмены доступны когда доступно редактирование полей-->
+				<StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 0 20 0"
+							Spacing="10">
+					
+					<Button Content="Редактировать" Click="EnableEdit_ButtonClick"
+							IsVisible="{Binding !IsFieldsEnabled, Mode=TwoWay}"/>
+					
+					<Button Content="Подтвердить" IsVisible="{Binding IsFieldsEnabled, Mode=TwoWay}" 
+							ToolTip.Tip="Сохранить изменения"
+							Click="ApplyEdit_ButtonClick"/>
+					
+					<Button Content="Отменить" IsVisible="{Binding IsFieldsEnabled, Mode=TwoWay}"
+							ToolTip.Tip="Не сохранять изменения"
+							Click="RemoveChanges_ButtonClick"/>
+				</StackPanel>
+				
+				<TextBlock Text="Информация о подписках и подписчиках" FontWeight="ExtraBold" Margin="20 20 20 10"
+						   FontSize="14" IsVisible="{Binding !IsAdmin}" Foreground="{DynamicResource PrimaryForeground}"/>
+				
+				<!--Информация о подписках и подписчиках-->
+				<Border Margin="20 10 20 20" Background="{DynamicResource SideMenuGradient}" CornerRadius="10"
+						IsVisible="{Binding !IsAdmin}">
+					<Border.Styles>
+						<Style Selector="Border">
+							<Setter Property="BoxShadow"
+									Value="{Binding Source={StaticResource ShadowColor}, 
+										  Converter={StaticResource ShadowConverter}}"/>
+						</Style>
+					</Border.Styles>
+					
+					<StackPanel Orientation="Horizontal" Spacing="50" Margin="30 10 20 20">
+					
+						<!--Подписки-->
+						<StackPanel Orientation="Vertical" VerticalAlignment="Center">
+							<TextBlock Text="Подписки" FontWeight="Bold" Foreground="{DynamicResource PrimaryForeground}"/>
+							<TextBlock Text="{Binding User.SubscriptionsCount}" HorizontalAlignment="Center" Foreground="{DynamicResource ButtonBackgroundGradient}"
+									   Margin="0 10 0 0"/>
+						</StackPanel>
+
+						<!--Подписки-->
+						<StackPanel Orientation="Vertical" VerticalAlignment="Center">
+							<TextBlock Text="Подписчики" FontWeight="Bold" Foreground="{DynamicResource PrimaryForeground}"/>
+							<TextBlock Text="{Binding User.SubscribersCount}" HorizontalAlignment="Center" Foreground="{DynamicResource ButtonBackgroundGradient}"
+									   Margin="0 10 0 0"/>
+						</StackPanel>
+					
+						<!--Перейти к окну с информацией о подписках и подписчиках-->
+						<Button	Content="Подробнее" ToolTip.Tip="Показать список подписок/подписчиков"
+								Click="ShowSubscriptionsInfo_ButtonClick"/>
+					</StackPanel>
+				</Border>
+
+				<TextBlock Text="Цветовая тема" FontWeight="ExtraBold" Margin="20 20 20 10"
+						   FontSize="14" Foreground="{DynamicResource PrimaryForeground}"/>
+
+				<!--Цветовые темы-->
+				<Border Margin="20 10 20 20" Background="{DynamicResource SideMenuGradient}" CornerRadius="10">
+					<Border.Styles>
+						<Style Selector="Border">
+							<Setter Property="BoxShadow"
+									Value="{Binding Source={StaticResource ShadowColor}, 
+										  Converter={StaticResource ShadowConverter}}"/>
+						</Style>
+					</Border.Styles>
+
+					<StackPanel Margin="20" Spacing="10">
+						<TextBlock Text="Выбор цветовой темы" Foreground="{DynamicResource PrimaryForeground}"/>
+
+						<ComboBox Name="ThemesComboBox" Margin="0 10 0 0" HorizontalAlignment="Stretch"
+							  PlaceholderText="Цветовая тема" CornerRadius="10"
+							  ItemsSource="{Binding ThemeDisplayNames}"
+							  IsVisible="{Binding IsSideMenuVisible}"
+							  SelectionChanged="ChangeUserTheme_SelectionChanged">
+						</ComboBox>
+
+					</StackPanel>
+				</Border>
+
+				<TextBlock Text="Пароль от аккаунта" FontWeight="ExtraBold" Margin="20 20 20 10"
+						   FontSize="14" Foreground="{DynamicResource PrimaryForeground}"/>
+				
+				<!--Смена пароля-->
+				<Border Margin="20 10 20 20" Background="{DynamicResource SideMenuGradient}" CornerRadius="10">
+					<Border.Styles>
+						<Style Selector="Border">
+							<Setter Property="BoxShadow"
+									Value="{Binding Source={StaticResource ShadowColor}, 
+										  Converter={StaticResource ShadowConverter}}"/>
+						</Style>
+					</Border.Styles>
+					
+					<StackPanel Margin="20" Spacing="10">
+						<TextBlock Text="Сменить пароль" Foreground="{DynamicResource PrimaryForeground}"/>
+
+						<TextBox Watermark="Новый пароль" Margin="0 0 50 0"
+								 Classes="Custom"
+								 PasswordChar="*"
+								 Name="PasswordTextBox"/>
+
+						<TextBox Watermark="Повторите пароль" Margin="0 0 50 0"
+								 Classes="Custom"
+								 PasswordChar="*"
+								 Name="RepeatPasswordTextBox"/>
+
+						<TextBlock Name="PasswordErrorMessage" Foreground="Red"
+								   TextWrapping="Wrap"/>
+						
+						<Button Content="Применить изменения"
+								Click="ChangePassword_ButtonClick"/>
+					</StackPanel>
+				</Border>
+
+				<TextBlock Text="Информация о платной подписке" FontWeight="ExtraBold" Margin="20 20 20 10"
+						   FontSize="14" IsVisible="{Binding !IsAdmin}"  Foreground="{DynamicResource PrimaryForeground}"/>
+
+				<!--Информация о подписке-->
+				<Border Margin="20 10 20 20" Background="{DynamicResource SideMenuGradient}"
+						IsVisible="{Binding !IsAdmin}" CornerRadius="10">
+
+					<Border.Styles>
+						<Style Selector="Border">
+							<Setter Property="BoxShadow"
+									Value="{Binding Source={StaticResource ShadowColor}, 
+										  Converter={StaticResource ShadowConverter}}"/>
+						</Style>
+					</Border.Styles>
+					
+					<StackPanel Orientation="Vertical" Margin="20 10 20 20" Spacing="10">
+
+						<!--Каждому StaskPanel добавить binding видимости-->
+
+						<!--Когда подписка активна-->
+						<StackPanel Orientation="Horizontal" IsVisible="{Binding IsSubscriptionActive}">
+							<TextBlock Text="Активна, истекает "  Foreground="{DynamicResource PrimaryForeground}"/>
+							<TextBlock Text="{Binding User.SubscriptionEndDate, StringFormat='{}{0:dd MMMM yyyy}'}" Foreground="{DynamicResource ButtonBackgroundGradient}"/>
+						</StackPanel>
+
+						<!--Когда подписка неактивна-->
+						<StackPanel Orientation="Horizontal" Spacing="5" IsVisible="{Binding !IsSubscriptionActive}">
+							<TextBlock Text="Неактивна " VerticalAlignment="Center"  Foreground="{DynamicResource PrimaryForeground}"/>
+							<Button Content="Оформить подписку" Classes="TransparentButton"
+									Foreground="{DynamicResource ButtonBackgroundGradient}" FontWeight="ExtraBold"
+									Click="Subscribe_ButtonClick"/>
+						</StackPanel>
+
+					</StackPanel>
+				</Border>
+
+				<TextBlock Text="Подписка на телеграм бота" FontSize="14" IsVisible="{Binding !IsAdmin}"
+						   FontWeight="ExtraBold" Margin="20 20 20 10"  Foreground="{DynamicResource PrimaryForeground}"/>
+				
+				
+				<!--Информация о телеграм боте-->
+				<Border Margin="20 10 20 20" Background="{DynamicResource SideMenuGradient}"
+						IsVisible="{Binding !IsAdmin}" CornerRadius="10">
+
+					<Border.Styles>
+						<Style Selector="Border">
+							<Setter Property="BoxShadow"
+									Value="{Binding Source={StaticResource ShadowColor}, 
+										  Converter={StaticResource ShadowConverter}}"/>
+						</Style>
+					</Border.Styles>
+
+					<StackPanel>
+						
+						<!--Тут добавить привязку что если есть подписка это не отображать-->
+						<StackPanel Orientation="Vertical" Margin="20 10 20 20" Spacing="10"
+									IsVisible="{Binding !IsUserHasTelegramId}">
+							<StackPanel Orientation="Horizontal">
+								<TextBlock Text="Управляйте задачами из телефона через "  Foreground="{DynamicResource PrimaryForeground}"/>
+								<TextBlock Text="PlanItBot!" Foreground="{DynamicResource ButtonBackgroundGradient}" FontWeight="ExtraBold"/>
+							</StackPanel>
+
+							<TextBlock Text="Перейдите по ссылке в Telegram, введите свои данные и подключите ежедневные уведомления о невыполненных задачах!"
+									   TextWrapping="Wrap"  Foreground="{DynamicResource PrimaryForeground}"/>
+
+							<TextBlock Text="@PlanItApplication_bot" FontWeight="Bold"  Foreground="{DynamicResource ButtonBackgroundGradient}"/>
+
+							<TextBlock Text="Доступно только по подписке"
+									   Foreground="{DynamicResource PrimaryForeground}"
+									   TextWrapping="Wrap" FontWeight="Bold"/>
+
+						</StackPanel>
+
+						<!--Информация об активном подключении на тг бота - если ПОЛЕ ТГ БОТ НЕ РАВНО НУЛЛ-->
+						<StackPanel Orientation="Vertical" Margin="20 10 20 20" Spacing="10"
+									IsVisible="{Binding IsUserSubscriptedAndHasTelegramId}">
+							<TextBlock Text="Подписка на бота активна! Включить / отключить уведомления или отказаться от использования вы можете в меню самого бота!" TextWrapping="Wrap"
+									    Foreground="{DynamicResource PrimaryForeground}"/>
+						</StackPanel>
+					</StackPanel>
+				</Border>
+			</StackPanel>
+		</Grid>
+	</ScrollViewer>
+</UserControl>

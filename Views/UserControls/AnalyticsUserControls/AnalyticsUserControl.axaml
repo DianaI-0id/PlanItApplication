@@ -1,0 +1,154 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+			 x:CompileBindings="False"
+			 xmlns:lvc="clr-namespace:LiveChartsCore.SkiaSharpView.Avalonia;assembly=LiveChartsCore.SkiaSharpView.Avalonia"
+             x:Class="Diploma_Ishchenko.AnalyticsUserControl">
+
+	<ScrollViewer VerticalScrollBarVisibility="Hidden">
+		<StackPanel Margin="20">
+			<!-- Заголовок -->
+			<TextBlock Text="Аналитика профиля" Classes="Title"/>
+			
+			<TextBlock Text="{Binding TodayStatsText}" Foreground="{DynamicResource PrimaryForeground}" Margin="20,20,0,20"
+					   FontSize="14"/>
+
+			<!-- Переключатель периода -->
+			<StackPanel Orientation="Horizontal" Margin="20,0,0,20" Spacing="10">
+				<Button Content="7 дней" Click="PeriodButton_Click" Tag="7" />
+				<Button Content="14 дней" Click="PeriodButton_Click" Tag="14" />
+				<Button Content="30 дней" Click="PeriodButton_Click" Tag="30" />
+				<Button Content="Полгода" Click="PeriodButton_Click" Tag="180" />
+				<Button Content="Год" Click="PeriodButton_Click" Tag="365" />
+			</StackPanel>
+
+			<!-- Статистика (анимированные числа) -->
+			<ScrollViewer HorizontalScrollBarVisibility="Hidden" Margin="0 -10 0 0">
+				<StackPanel Orientation="Horizontal" Spacing="15" HorizontalAlignment="Center"
+							Margin="0 20 0 20">
+					<Border Padding="10" CornerRadius="10">
+						<Border.Styles>
+							<Style Selector="Border">
+								<Setter Property="BoxShadow"
+										Value="{Binding Source={StaticResource ShadowColor}, 
+										  Converter={StaticResource ShadowConverter}}"/>
+							</Style>
+						</Border.Styles>
+
+						<StackPanel>
+							<TextBlock Text="Выполнено задач" Foreground="{DynamicResource PrimaryForeground}"/>
+							<TextBlock Text="{Binding AnimatedTasksCompleted}" FontSize="30" Foreground="{DynamicResource ButtonBackgroundGradient}"
+									   HorizontalAlignment="Center"/>
+						</StackPanel>
+					</Border>
+
+					<Border Padding="10" CornerRadius="10">
+						<Border.Styles>
+							<Style Selector="Border">
+								<Setter Property="BoxShadow"
+										Value="{Binding Source={StaticResource ShadowColor}, 
+										  Converter={StaticResource ShadowConverter}}"/>
+							</Style>
+						</Border.Styles>
+
+						<StackPanel>
+							<TextBlock Text="Просрочено задач" Foreground="{DynamicResource PrimaryForeground}"/>
+							<TextBlock Text="{Binding AnimatedTasksOverdue}" FontSize="30"  Foreground="{DynamicResource ButtonBackgroundGradient}"
+									   HorizontalAlignment="Center"/>
+						</StackPanel>
+					</Border>
+
+					<Border Padding="10" CornerRadius="10">
+						<Border.Styles>
+							<Style Selector="Border">
+								<Setter Property="BoxShadow"
+										Value="{Binding Source={StaticResource ShadowColor}, 
+										  Converter={StaticResource ShadowConverter}}"/>
+							</Style>
+						</Border.Styles>
+
+						<StackPanel>
+							<TextBlock Text="Достигнуто целей" Foreground="{DynamicResource PrimaryForeground}" />
+							<TextBlock Text="{Binding AnimatedGoalsCompleted}" FontSize="30"  Foreground="{DynamicResource ButtonBackgroundGradient}"
+									   HorizontalAlignment="Center"/>
+						</StackPanel>
+					</Border>
+
+					<Border Padding="10" CornerRadius="10">
+						<Border.Styles>
+							<Style Selector="Border">
+								<Setter Property="BoxShadow"
+										Value="{Binding Source={StaticResource ShadowColor}, 
+										  Converter={StaticResource ShadowConverter}}"/>
+							</Style>
+						</Border.Styles>
+
+						<StackPanel>
+							<TextBlock Text="Постов написано" Foreground="{DynamicResource PrimaryForeground}"/>
+							<TextBlock Text="{Binding AnimatedPostsWritten}" FontSize="30"  Foreground="{DynamicResource ButtonBackgroundGradient}"
+									   HorizontalAlignment="Center"/>
+						</StackPanel>
+					</Border>
+
+					<Border Padding="10" CornerRadius="10">
+						<Border.Styles>
+							<Style Selector="Border">
+								<Setter Property="BoxShadow"
+										Value="{Binding Source={StaticResource ShadowColor}, 
+										  Converter={StaticResource ShadowConverter}}"/>
+							</Style>
+						</Border.Styles>
+
+						<StackPanel>
+							<TextBlock Text="Баллов получено" Foreground="{DynamicResource PrimaryForeground}"/>
+							<TextBlock Text="{Binding AnimatedPointsEarned}" FontSize="30"  Foreground="{DynamicResource ButtonBackgroundGradient}"
+									   HorizontalAlignment="Center"/>
+						</StackPanel>
+					</Border>
+				</StackPanel>
+			</ScrollViewer>
+
+			<!-- Графики -->
+			<Border Background="{DynamicResource ButtonBackgroundGradient}"
+					Padding="10" CornerRadius="10">
+
+				<StackPanel Orientation="Horizontal">
+					<lvc:PieChart
+						x:Name="PieChartControl"
+						LegendPosition="Bottom"
+						HorizontalAlignment="Left"
+						Series="{Binding PieSeries}"
+						LegendBackgroundPaint="{Binding LedgendBackgroundPaint}"
+						LegendTextPaint="{Binding LegendTextPaint}"
+						Margin="0,30,0,0"
+						TooltipPosition="Hidden"
+						Height="300" Width="300"
+						InitialRotation="-90"
+						MaxAngle="360"/>
+
+					<!--Данные о выполнении задач-->
+					<Border Padding="10" CornerRadius="10" MaxHeight="100"
+							Background="{DynamicResource SideMenuGradient}">
+						<Border.Styles>
+							<Style Selector="Border">
+								<Setter Property="BoxShadow"
+										Value="{Binding Source={StaticResource ShadowColor}, 
+										  Converter={StaticResource ShadowConverter}}"/>
+							</Style>
+						</Border.Styles>
+						
+						<StackPanel Orientation="Vertical" Spacing="10" >
+							<TextBlock Text="{Binding ConsecutiveDays}" HorizontalAlignment="Center" FontSize="20"
+									   Foreground="{DynamicResource PrimaryForeground}"/>
+							<TextBlock Text="дней подряд вы выполняете задачи" TextWrapping="Wrap"
+									   Foreground="{DynamicResource PrimaryForeground}"
+									   TextAlignment="Center"/>
+						</StackPanel>
+					</Border>
+				</StackPanel>
+			</Border>
+		</StackPanel>
+	</ScrollViewer>
+</UserControl>

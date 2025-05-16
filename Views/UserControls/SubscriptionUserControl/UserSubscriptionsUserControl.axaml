@@ -1,0 +1,111 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+			 x:CompileBindings="False"
+             x:Class="Diploma_Ishchenko.UserSubscriptionsUserControl">
+	
+	<Grid ShowGridLines="False">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="*"/>
+			<RowDefinition Height="Auto"/>
+		</Grid.RowDefinitions>
+
+		<TextBlock Text="Информация о подписках" Classes="Title" Grid.Row="0"
+                   Foreground="{DynamicResource PrimaryForeground}"/>
+
+		<!-- Кнопки переключения -->
+		<Grid ShowGridLines="False" Grid.Row="1"
+              Margin="10"
+              ColumnDefinitions="*, *">
+			<Button Content="Мои подписки"
+                    HorizontalAlignment="Stretch"
+                    HorizontalContentAlignment="Center"
+                    Margin="10 0 10 0"
+                    Click="BtnSubscriptions_Click"
+                    IsEnabled="{Binding IsSubscriptionsButtonEnabled}"/>
+			
+			<Button Content="Мои подписчики"
+                    Grid.Column="1"
+                    HorizontalAlignment="Stretch"
+                    HorizontalContentAlignment="Center"
+                    Margin="10 0 10 0"
+                    Click="BtnSubscribers_Click"
+                    IsEnabled="{Binding IsSubscribersButtonEnabled}"/>
+		</Grid>
+
+		<TextBox Watermark="Начните искать..." Grid.Row="2" Margin="20 10 20 10"
+				 KeyUp="SearchUser_KeyUp"/>
+
+		<!-- Сообщение "Нет подписок" -->
+		<StackPanel Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Center"
+                    IsVisible="{Binding IsNoSubscriptionsVisible}" Margin="100">
+			<TextBlock Text="Вы еще ни на кого не подписаны" FontWeight="DemiBold"
+                       HorizontalAlignment="Center" FontSize="20"
+                       TextAlignment="Center"
+                       Foreground="{DynamicResource ButtonBackgroundGradient}"/>
+		</StackPanel>
+
+		<!-- Сообщение "Нет подписчиков" -->
+		<StackPanel Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Center"
+                    IsVisible="{Binding IsNoSubscribersVisible}" Margin="100">
+			<TextBlock Text="У вас пока нет подписчиков" FontWeight="DemiBold"
+                       HorizontalAlignment="Center" FontSize="20"
+                       TextAlignment="Center"
+                       Foreground="{DynamicResource ButtonBackgroundGradient}"/>
+		</StackPanel>
+
+		<!-- Список подписок/подписчиков -->
+		<ListBox Grid.Row="3" Margin="10" ItemsSource="{Binding Items}">
+			<ListBox.ItemTemplate>
+				<DataTemplate>
+					<Border Background="{DynamicResource SideMenuGradient}"
+							Padding="10"
+							CornerRadius="10">
+
+						<Border.Styles>
+							<Style Selector="Border">
+								<Setter Property="BoxShadow"
+										Value="{Binding Source={StaticResource ShadowColor}, 
+										  Converter={StaticResource ShadowConverter}}"/>
+							</Style>
+						</Border.Styles>
+
+						<Panel>
+							<StackPanel Orientation="Horizontal" Spacing="10">
+								<!--Фотка-->
+								<Border CornerRadius="75" ClipToBounds="True" ToolTip.Tip="Посмотреть профиль"
+										 Width="30" Height="30"
+										 PointerPressed="ShowUserPosts_PointerPressed">
+									<Image Source="{Binding AvatarImage}"
+										   Width="30" Height="30"
+										   Stretch="UniformToFill"/>
+								</Border>
+
+								<!--Никнейм и имя-->
+								<StackPanel Margin="10 0 0 0" Spacing="10">
+									<TextBlock Text="{Binding Nickname}" VerticalAlignment="Center"
+											   FontSize="16"
+											   Foreground="{DynamicResource ButtonBackgroundGradient}"/>
+
+									<TextBlock Text="{Binding Username}" VerticalAlignment="Center"
+											   FontSize="11"
+											   Foreground="{DynamicResource PrimaryForeground}"/>
+								</StackPanel>
+							</StackPanel>
+							
+							<!--Добавить кнопку отписки-->
+							<Button Content="Отписаться" HorizontalAlignment="Right" Margin="0 0 20 0"
+									Click="DropSubscription_ButtonClick" IsVisible="{Binding IsSubscription}"/>
+						</Panel>
+						
+					</Border>
+				</DataTemplate>
+			</ListBox.ItemTemplate>
+		</ListBox>
+	</Grid>
+</UserControl>

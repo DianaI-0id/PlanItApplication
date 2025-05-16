@@ -1,0 +1,121 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Remove="Assets\Fonts\Montserrat-Regular.ttf" />
+    <None Remove="Assets\Fonts\Uncage-Bold.ttf" />
+    <None Remove="Assets\Images\DarkPurpleTheme\horizPurpleLogo.svg" />
+    <None Remove="Assets\Images\DarkPurpleTheme\loginImagePurple.svg" />
+    <None Remove="Assets\Images\DarkPurpleTheme\logoroundPurple.svg" />
+    <None Remove="Assets\Images\DarkPurpleTheme\relaxPurpleImage.jpg" />
+    <None Remove="Assets\Images\DarkPurpleTheme\settingsPurple.svg" />
+    <None Remove="Assets\Images\DefaultRedTheme\newLogoLogin.svg" />
+    <None Remove="Assets\Images\DefaultRedTheme\redHorizontalLogoIcon.svg" />
+    <None Remove="Assets\Images\DefaultRedTheme\redLoginImage.svg" />
+    <None Remove="Assets\Images\DefaultRedTheme\redOptionsIcon.svg" />
+    <None Remove="Assets\Images\DefaultRedTheme\redRoundedLogo.svg" />
+    <None Remove="Assets\Images\DefaultRedTheme\relaxRedIllustration.jpg" />
+    <None Remove="Assets\Images\DefaultTheme\addIcon.svg" />
+    <None Remove="Assets\Images\DefaultTheme\analyticsIcon.svg" />
+    <None Remove="Assets\Images\DefaultTheme\blueLoginImage.svg" />
+    <None Remove="Assets\Images\DefaultTheme\communityIcon.svg" />
+    <None Remove="Assets\Images\DefaultTheme\deleteIcon.svg" />
+    <None Remove="Assets\Images\DefaultTheme\editIcon.svg" />
+    <None Remove="Assets\Images\DefaultTheme\goalIcon.svg" />
+    <None Remove="Assets\Images\DefaultTheme\groupGoalIcon.svg" />
+    <None Remove="Assets\Images\DefaultTheme\historyIcon.svg" />
+    <None Remove="Assets\Images\DefaultTheme\loginImage.svg" />
+    <None Remove="Assets\Images\DefaultTheme\logoHorizontal.svg" />
+    <None Remove="Assets\Images\DefaultTheme\logoRounded.svg" />
+    <None Remove="Assets\Images\DefaultTheme\logoutIcon.svg" />
+    <None Remove="Assets\Images\DefaultTheme\loyaltyIcon.svg" />
+    <None Remove="Assets\Images\DefaultTheme\myDiscountsIcon.svg" />
+    <None Remove="Assets\Images\DefaultTheme\myPosts.svg" />
+    <None Remove="Assets\Images\DefaultTheme\newsIcon.svg" />
+    <None Remove="Assets\Images\DefaultTheme\optionsIcon.svg" />
+    <None Remove="Assets\Images\DefaultTheme\profileIcon.svg" />
+    <None Remove="Assets\Images\DefaultTheme\relaxIllustration.jpg" />
+    <None Remove="Assets\Images\DefaultTheme\showMoreIcon.svg" />
+    <None Remove="Assets\Images\DefaultTheme\subscriptionIcon.svg" />
+    <None Remove="Assets\Images\DefaultTheme\taskIcon.svg" />
+    <None Remove="Assets\Images\DefaultTheme\turnOff.svg" />
+    <None Remove="Assets\Images\productivityBlack.svg" />
+    <None Remove="Assets\placeholder.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AvaloniaResource Include="Assets\Fonts\Montserrat-Regular.ttf" />
+    <AvaloniaResource Include="Assets\Fonts\Uncage-Bold.ttf" />
+    <AvaloniaResource Include="Assets\Images\DarkPurpleTheme\horizPurpleLogo.svg" />
+    <AvaloniaResource Include="Assets\Images\DarkPurpleTheme\loginImagePurple.svg" />
+    <AvaloniaResource Include="Assets\Images\DarkPurpleTheme\logoroundPurple.svg" />
+    <AvaloniaResource Include="Assets\Images\DarkPurpleTheme\relaxPurpleImage.jpg" />
+    <AvaloniaResource Include="Assets\Images\DarkPurpleTheme\settingsPurple.svg" />
+    <AvaloniaResource Include="Assets\Images\DefaultRedTheme\newLogoLogin.svg" />
+    <AvaloniaResource Include="Assets\Images\DefaultRedTheme\redHorizontalLogoIcon.svg" />
+    <AvaloniaResource Include="Assets\Images\DefaultRedTheme\redLoginImage.svg" />
+    <AvaloniaResource Include="Assets\Images\DefaultRedTheme\redOptionsIcon.svg" />
+    <AvaloniaResource Include="Assets\Images\DefaultRedTheme\redRoundedLogo.svg" />
+    <AvaloniaResource Include="Assets\Images\DefaultRedTheme\relaxRedIllustration.jpg" />
+    <AvaloniaResource Include="Assets\Images\DefaultTheme\addIcon.svg" />
+    <AvaloniaResource Include="Assets\Images\DefaultTheme\analyticsIcon.svg" />
+    <AvaloniaResource Include="Assets\Images\DefaultTheme\blueLoginImage.svg" />
+    <AvaloniaResource Include="Assets\Images\DefaultTheme\communityIcon.svg" />
+    <AvaloniaResource Include="Assets\Images\DefaultTheme\deleteIcon.svg" />
+    <AvaloniaResource Include="Assets\Images\DefaultTheme\editIcon.svg" />
+    <AvaloniaResource Include="Assets\Images\DefaultTheme\goalIcon.svg" />
+    <AvaloniaResource Include="Assets\Images\DefaultTheme\groupGoalIcon.svg" />
+    <AvaloniaResource Include="Assets\Images\DefaultTheme\historyIcon.svg" />
+    <AvaloniaResource Include="Assets\Images\DefaultTheme\loginImage.svg" />
+    <AvaloniaResource Include="Assets\Images\DefaultTheme\logoHorizontal.svg" />
+    <AvaloniaResource Include="Assets\Images\DefaultTheme\logoRounded.svg" />
+    <AvaloniaResource Include="Assets\Images\DefaultTheme\logoutIcon.svg" />
+    <AvaloniaResource Include="Assets\Images\DefaultTheme\loyaltyIcon.svg" />
+    <AvaloniaResource Include="Assets\Images\DefaultTheme\myDiscountsIcon.svg" />
+    <AvaloniaResource Include="Assets\Images\DefaultTheme\myPosts.svg" />
+    <AvaloniaResource Include="Assets\Images\DefaultTheme\newsIcon.svg" />
+    <AvaloniaResource Include="Assets\Images\DefaultTheme\optionsIcon.svg" />
+    <AvaloniaResource Include="Assets\Images\DefaultTheme\profileIcon.svg" />
+    <AvaloniaResource Include="Assets\Images\DefaultTheme\relaxIllustration.jpg" />
+    <AvaloniaResource Include="Assets\Images\DefaultTheme\showMoreIcon.svg" />
+    <AvaloniaResource Include="Assets\Images\DefaultTheme\subscriptionIcon.svg" />
+    <AvaloniaResource Include="Assets\Images\DefaultTheme\taskIcon.svg" />
+    <AvaloniaResource Include="Assets\Images\DefaultTheme\turnOff.svg" />
+    <AvaloniaResource Include="Assets\placeholder.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+	  <PackageReference Include="Avalonia" Version="11.3.0" />
+	  <PackageReference Include="Avalonia.Desktop" Version="11.3.0" />
+	  <PackageReference Include="Avalonia.Svg" Version="11.3.0" />
+	  <PackageReference Include="Avalonia.Themes.Fluent" Version="11.3.0" />
+	  <PackageReference Include="Avalonia.Fonts.Inter" Version="11.3.0" />
+	  <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="11.3.0" />
+	  <PackageReference Include="Avalonia.Win32" Version="11.3.0" />
+    <!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
+    <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
+    <PackageReference Include="Google.Apis.Auth" Version="1.69.0" />
+    <PackageReference Include="Google.Apis.Gmail.v1" Version="1.68.0.3427" />
+    <PackageReference Include="Google.Apis.Oauth2.v2" Version="1.68.0.1869" />
+    <PackageReference Include="LiveChartsCore.SkiaSharpView.Avalonia" Version="2.0.0-rc5.4" />
+    <PackageReference Include="MailKit" Version="4.11.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="MimeKit" Version="4.11.0" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.0" />
+    <PackageReference Include="Supabase" Version="1.1.1" />
+    <PackageReference Include="Supabase.Realtime" Version="7.1.0" />
+  </ItemGroup>
+</Project>

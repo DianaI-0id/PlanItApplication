@@ -1,0 +1,81 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+			 x:CompileBindings="False"
+             x:Class="Diploma_Ishchenko.AddPersonalTaskUserControl">
+	
+	<Grid ShowGridLines="False">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="*"/>
+		</Grid.RowDefinitions>
+		
+		<TextBlock Text="Добавить задачу"  Classes="Title" Grid.Row="0"
+				   Foreground="{DynamicResource PrimaryForeground}"/>
+		
+		<!--Тут будет наименование цели-->
+
+		<!--Поля для заполнения-->
+		<ScrollViewer VerticalScrollBarVisibility="Hidden" Grid.Row="1">
+			
+			<StackPanel Grid.Row="1" Spacing="10" Margin="0 10 0 0">
+
+				<!--Ниаменование цели к которой создаем задачу-->
+				<StackPanel Orientation="Horizontal" Margin="0 0 0 10" IsVisible="{Binding IsGoalTask}">
+					<TextBlock Text="Цель: " FontWeight="Bold" Margin="20 0 0 0" FontSize="15"/>
+					<TextBlock Text="{Binding _goal.Title}" FontSize="15"/>
+				</StackPanel>
+
+
+				<!--Предусмотреть выбор цели из комбо бокса для привязки задачи к цели-->
+				
+				<TextBox Watermark="Наименование задачи" Classes="Custom" Name="TaskTitleTextBox"/>
+				<TextBox Watermark="Добавьте описание задачи (может остаться пустым)" Classes="Custom" Height="150"
+						 TextWrapping="Wrap" Name="TaskDescriptionTextBox"/>
+
+				<TextBox Watermark="Раздел, например Правки" Classes="Custom"
+						 Name="SectionTextBox"/>	
+
+				<!--Приоритет-->
+				<ComboBox PlaceholderText="Приоритет" HorizontalAlignment="Stretch" Margin="10 0 10 0" CornerRadius="8"
+						  SelectionChanged="SelectPriority_SelectionChanged">
+					<ComboBoxItem Content="1"/>
+					<ComboBoxItem Content="2"/>
+					<ComboBoxItem Content="3"/>
+					<ComboBoxItem Content="4"/>
+				</ComboBox>
+
+				<!--Выбор дедлайна задачи-->
+				<StackPanel Orientation="Vertical" Spacing="5">
+					<TextBlock Text="Выполнить задачу до: " Margin="10 0 0 0" VerticalAlignment="Center"
+							   Foreground="{DynamicResource PrimaryForeground}"/>
+
+					<StackPanel Orientation="Horizontal">
+						<DatePicker HorizontalAlignment="Left" Margin="10 0 0 0"
+								   SelectedDate="{Binding SelectedDate, Mode=TwoWay}"/>
+
+						<TimePicker HorizontalAlignment="Left" Margin="10 0 0 0"
+								   SelectedTime="{Binding SelectedTime, Mode=TwoWay}"/>
+
+						<!--Тут будет выводиться выбранная дата и время-->
+						<TextBlock Text="{Binding FullDateTime, StringFormat='dd/MM/yyyy HH:mm'}"
+								  VerticalAlignment="Center" Margin="10 0 0 0"
+								  FontWeight="ExtraBold"
+								  Foreground="{DynamicResource ButtonBackgroundGradient}"/>
+					</StackPanel>
+				</StackPanel>
+				
+				<TextBlock Name="ErrorMessage" Foreground="Red" Margin="10 0 0 0"/>
+
+
+				<StackPanel Orientation="Horizontal" Spacing="10" Margin="10 0 0 0">
+					<Button Content="Подтвердить" Margin="10 0 0 0" Click="AddTask_ButtonClick"/>
+					<Button Content="Назад" Margin="0 0 0 0" Click="Return_ButtonClick"/>
+				</StackPanel>
+			</StackPanel>
+		</ScrollViewer>
+
+	</Grid>
+</UserControl>

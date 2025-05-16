@@ -1,0 +1,60 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+			 x:CompileBindings="False"
+             x:Class="Diploma_Ishchenko.DetailNewsInfoUserControl">
+  <!--Подробная информация о новости со всеми картинками-->
+	<Grid ShowGridLines="False">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="*"/>
+			<RowDefinition Height="Auto"/>
+		</Grid.RowDefinitions>
+
+		<TextBlock Text="{Binding _selectedNews.Title}" Classes="Title" Margin="20 10 10 10" FontSize="17"
+				   FontWeight="Bold" Foreground="{DynamicResource PrimaryForeground}"/>
+
+		<ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Row="1">
+			<StackPanel Margin="10" Spacing="20">
+				<TextBlock Text="{Binding _selectedNews.Content}" Foreground="{DynamicResource PrimaryForeground}" FontSize="15" TextAlignment="Left"
+						   TextWrapping="Wrap" Margin="10 0 20 20"/>
+
+				<!-- Галерея изображений -->
+				<ItemsControl ItemsSource="{Binding NewsImagesCollection}">
+					<ItemsControl.ItemsPanel>
+						<ItemsPanelTemplate>
+							<UniformGrid Columns="2"/>
+						</ItemsPanelTemplate>
+					</ItemsControl.ItemsPanel>
+					<ItemsControl.ItemTemplate>
+						<DataTemplate>
+							<Border CornerRadius="10" Margin="10" ClipToBounds="False"
+                                    BorderBrush="{DynamicResource ButtonBackgroundGradient}">
+								
+								<Border CornerRadius="20" ClipToBounds="True">
+									<Image Source="{Binding}" Stretch="UniformToFill"/>
+								</Border>
+							</Border>
+						</DataTemplate>
+					</ItemsControl.ItemTemplate>
+				</ItemsControl>
+			</StackPanel>
+		</ScrollViewer>
+
+		<Border Grid.Row="2" Background="{DynamicResource SideMenuGradient}"
+				CornerRadius="10" Margin="20 10 20 10">
+			<Border.Styles>
+				<Style Selector="Border">
+					<Setter Property="BoxShadow"
+							Value="{Binding Source={StaticResource ShadowColor}, 
+										  Converter={StaticResource ShadowConverter}}"/>
+				</Style>
+			</Border.Styles>
+			
+			<Button Content="Назад" Margin="10"
+					HorizontalAlignment="Left" Click="OnBackClick"/>
+		</Border>
+	</Grid>
+</UserControl>

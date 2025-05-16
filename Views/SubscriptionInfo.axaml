@@ -1,0 +1,79 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="540"
+		Width="400" Height="540"
+		WindowStartupLocation="CenterScreen"
+        x:Class="Diploma_Ishchenko.SubscriptionInfo"
+		SystemDecorations="None"
+		Background="Transparent"
+        Title="SubscriptionInfo">
+	
+	<Border CornerRadius="20" Background="{DynamicResource PrimaryBackground}"
+			ClipToBounds="True"
+			BorderBrush="{DynamicResource ButtonBackgroundGradient}" BorderThickness="1">
+		<Grid ShowGridLines="False">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="Auto"/>
+				<RowDefinition Height="*"/>
+				<RowDefinition Height="Auto"/>
+			</Grid.RowDefinitions>
+
+			<Panel Grid.Row="0" Background="{DynamicResource ButtonBackgroundGradient}"/>
+			<!--Заголовок-->
+			<StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
+				<TextBlock Text="Подписка " FontSize="15" Foreground="{DynamicResource PrimaryBackground}"/>
+				<TextBlock Text="PLAN IT" FontWeight="ExtraBold" FontSize="15" Foreground="{DynamicResource PrimaryBackground}"/>
+			</StackPanel>
+
+			<!--Информация-->
+			<ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Hidden"
+						  HorizontalAlignment="Stretch">
+				<StackPanel Orientation="Vertical" Grid.Row="1" Margin="10"
+							Width="370">
+
+					<!--Без подписки-->
+					<TextBlock Text="БЕЗ ПОДПИСКИ" Margin="10 10 0 0" FontWeight="Bold"
+							   Foreground="{DynamicResource ButtonBackgroundGradient}"/>
+					
+					<TextBlock Text="Создавать задачи" Margin="30 10 0 0" Foreground="{DynamicResource PrimaryForeground}"/>
+					<TextBlock Text="Следить за сообществом" Margin="30 10 0 0" Foreground="{DynamicResource PrimaryForeground}"/>
+					<TextBlock Text="Следить за новостями PlanIt" Margin="30 10 0 0" Foreground="{DynamicResource PrimaryForeground}"/>
+
+					<!--С подпиской-->
+					<TextBlock Text="С ПОДПИСКОЙ" Margin="10 20 0 0" FontWeight="Bold"
+							   Foreground="{DynamicResource ButtonBackgroundGradient}"/>
+
+					<TextBlock Text="Создавать задачи" Margin="30 10 0 0" Foreground="{DynamicResource PrimaryForeground}"/>
+					<TextBlock Text="Создавать цели и задачи" Margin="30 10 0 0" Foreground="{DynamicResource PrimaryForeground}"/>
+					<TextBlock Text="Участвовать в балловой системе за выполнение задач" Margin="30 10 0 0"
+							   Foreground="{DynamicResource PrimaryForeground}"
+							   TextWrapping="Wrap"/>
+					<TextBlock Text="Обменивать баллы на бонусные карты " Foreground="{DynamicResource PrimaryForeground}" Margin="30 10 0 0"/>
+					<TextBlock Text="Следить за сообществом" Margin="30 10 0 0 " Foreground="{DynamicResource PrimaryForeground}"/>
+					<TextBlock Text="Следить за новостями PlanIt" Margin="30 10 0 0" Foreground="{DynamicResource PrimaryForeground}"/>
+					<TextBlock Text="Публиковать посты" Margin="30 10 0 0" Foreground="{DynamicResource PrimaryForeground}"/>
+					<TextBlock Text="Использовать Telegram бота для управления задачами" Margin="30 10 0 0"
+							   TextWrapping="Wrap" Foreground="{DynamicResource PrimaryForeground}"/>
+					
+					<TextBlock Text="Стоимость подписки" HorizontalAlignment="Center" Margin="10 20 10 10"
+							   Foreground="{DynamicResource PrimaryForeground}"
+							   FontWeight="Bold" FontSize="17"/>
+					<TextBlock Text="490Р/МЕС" HorizontalAlignment="Center" Margin="10 0 10 10"
+							   FontWeight="ExtraBold" FontSize="18"
+							   Foreground="{DynamicResource ButtonBackgroundGradient}"/>
+				</StackPanel>
+			</ScrollViewer>
+
+
+			<!--Кнопка перехода к оформлению-->
+
+			<StackPanel Orientation="Horizontal" Margin="10" Spacing="10" Grid.Row="2"
+						HorizontalAlignment="Center">
+				<Button Content="Оформить подписку" Click="Subscribe_ButtonClick"/>
+				<Button Content="Отмена" Click="Back_ButtonClick"/>
+			</StackPanel>
+		</Grid>
+	</Border>
+</Window>

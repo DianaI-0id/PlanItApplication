@@ -1,0 +1,90 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- Add Resources Here -->
+	<!--Палитра Бело-серых оттенков-->
+	<Color x:Key="SecondaryDark">#dadada</Color>
+
+	<Color x:Key="SecondaryMiddleDark">#e2e4e2</Color>
+
+	<Color x:Key="SecondaryMiddle">#ebebea</Color>
+
+	<Color x:Key="SecondaryMiddleLight">#f2f2f1</Color>
+
+	<Color x:Key="SecondaryLight">#f6f6f6</Color>
+
+	<LinearGradientBrush x:Key="ItemBackgroundGradient" StartPoint="0%, 0%" EndPoint="100%, 0%">
+		<GradientStop Offset="0" Color="{DynamicResource PrimaryBackground}"/>
+		<GradientStop Offset="1" Color="{DynamicResource SecondaryDark}"/>
+	</LinearGradientBrush>
+
+	<Color x:Key="ShadowColor">#c1c1c1</Color>
+
+	<!--Оттенки красного-->
+	<Color x:Key="PrimaryDark">#3d0015</Color>
+
+	<Color x:Key="MiddleDark">#70000b</Color>
+
+	<Color x:Key="Middle">#9e0005</Color>
+
+	<Color x:Key="MiddleLight">#d10000</Color>
+
+	<Color x:Key="Light">#e02d00</Color>
+
+
+	<Color x:Key="SideMenuLight">#f6f7f6</Color>
+	<Color x:Key="SideMenuMiddle">#e4e5e4</Color>
+
+	<!--Белый фон-->
+	<Color x:Key="PrimaryBackground">#FFFFFF</Color>
+
+	<!--Цвет текста под кнопкой-->
+	<Color x:Key="PrimaryButtonForeground">#FFFFFF</Color>
+
+	<!--Черный по умолчанию-->
+	<Color x:Key="PrimaryForeground">#000000</Color>
+
+	<LinearGradientBrush x:Key="ButtonBackgroundGradient" StartPoint="0%, 0%" EndPoint="100%, 0%">
+		<GradientStop Offset="0" Color="{DynamicResource Middle}"/>
+		<GradientStop Offset="1" Color="{DynamicResource MiddleLight}"/>
+	</LinearGradientBrush>
+
+	<!--Заливка бокового меню-->
+	<LinearGradientBrush x:Key="SideMenuGradient" StartPoint="0%, 0%" EndPoint="100%, 0%">
+		<GradientStop Offset="0.9" Color="{DynamicResource SecondaryLight}"/>
+		<GradientStop Offset="1" Color="{DynamicResource SecondaryMiddleDark}"/>
+	</LinearGradientBrush>
+
+	<x:String x:Key="HorizontalLogoIcon">/Assets/Images/DefaultRedTheme/redHorizontalLogoIcon.svg</x:String>
+	<x:String x:Key="RoundLogoIcon">/Assets/Images/DefaultRedTheme/redRoundedLogo.svg</x:String>
+	<x:String x:Key="LoginImage">/Assets/Images/DefaultRedTheme/newLogoLogin.svg</x:String>
+	<x:String x:Key="TurnOffIcon">/Assets/Images/DefaultTheme/turnOff.svg</x:String>
+
+	<x:String x:Key="CommunityIcon">/Assets/Images/DefaultTheme/communityIcon.svg</x:String>
+	<x:String x:Key="GroupGoalIcon">/Assets/Images/DefaultTheme/groupGoalIcon.svg</x:String>
+	<x:String x:Key="GoalIcon">/Assets/Images/DefaultTheme/goalIcon.svg</x:String>
+	<x:String x:Key="TaskIcon">/Assets/Images/DefaultTheme/taskIcon.svg</x:String>
+	<x:String x:Key="ProfileIcon">/Assets/Images/DefaultTheme/profileIcon.svg</x:String>
+	<x:String x:Key="MyPostsIcon">/Assets/Images/DefaultTheme/myPosts.svg</x:String>
+	<x:String x:Key="HistoryIcon">/Assets/Images/DefaultTheme/historyIcon.svg</x:String>
+	<x:String x:Key="AnalyticsIcon">/Assets/Images/DefaultTheme/analyticsIcon.svg</x:String>
+	<x:String x:Key="MyDiscountsIcon">/Assets/Images/DefaultTheme/myDiscountsIcon.svg</x:String>
+	<x:String x:Key="NewsIcon">/Assets/Images/DefaultTheme/newsIcon.svg</x:String>
+	<x:String x:Key="SubscriptionIcon">/Assets/Images/DefaultTheme/subscriptionIcon.svg</x:String>
+	<x:String x:Key="LoyaltyIcon">/Assets/Images/DefaultTheme/loyaltyIcon.svg</x:String>
+	<x:String x:Key="LogoutIcon">/Assets/Images/DefaultTheme/logoutIcon.svg</x:String>
+	<x:String x:Key="AddIcon">/Assets/Images/DefaultTheme/addIcon.svg</x:String>
+	<x:String x:Key="OptionsIcon">/Assets/Images/DefaultRedTheme/redOptionsIcon.svg</x:String>
+	<x:String x:Key="ShowMore">/Assets/Images/DefaultTheme/showMoreIcon.svg</x:String>
+	<x:String x:Key="EditIcon">/Assets/Images/DefaultTheme/editIcon.svg</x:String>
+	<x:String x:Key="DeleteIcon">/Assets/Images/DefaultTheme/deleteIcon.svg</x:String>
+
+	<Bitmap x:Key="RelaxIllustration">/Assets/Images/DefaultRedTheme/relaxRedIllustration.jpg</Bitmap>
+
+	<FontFamily x:Key="Montserrat">/Assets/Fonts/Montserrat-Regular.ttf#Montserrat</FontFamily>
+	<FontFamily x:Key="Uncage">/Assets/Fonts/Uncage-Bold.ttf#Uncage</FontFamily>
+
+	<LinearGradientBrush x:Key="DialogWindowGradient" StartPoint="0%, 0%" EndPoint="100%, 0%">
+		<GradientStop Offset="0.5" Color="{DynamicResource SideMenuLight}"/>
+		<GradientStop Offset="1" Color="{DynamicResource SideMenuMiddle}"/>
+	</LinearGradientBrush>
+</ResourceDictionary>

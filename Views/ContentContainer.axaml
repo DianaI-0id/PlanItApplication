@@ -1,0 +1,203 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="900" d:DesignHeight="550"
+		Width="1000" Height="600"
+		SystemDecorations="None"
+		Background="Transparent"
+		WindowStartupLocation="CenterScreen"
+		x:CompileBindings="False"
+        x:Class="Diploma_Ishchenko.ContentContainer"
+		PointerPressed="OnPointerPressed"
+        PointerMoved="OnPointerMoved"
+        PointerReleased="OnPointerReleased"
+        Title="ContentContainer">
+	
+	<Border Background="{DynamicResource PrimaryBackground}" 
+			CornerRadius="10" ClipToBounds="True" BorderBrush="{DynamicResource ButtonBackgroundGradient}"
+			BorderThickness="1">
+		
+		<Grid ShowGridLines="False">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="Auto"/>
+				<ColumnDefinition Width="*"/>
+			</Grid.ColumnDefinitions>
+
+			<!--Боковая панель-->
+			<Border Padding="10" Grid.Column="0" Width="70" Background="{DynamicResource SideMenuGradient}"
+					x:Name="SideMenuBorder" CornerRadius="10"
+					PointerEntered="SideMenuBorder_PointerEntered"
+					PointerExited="SideMenuBorder_PointerExited">
+				<Border.Transitions>
+					<Transitions>
+						<DoubleTransition Property="Width" Duration="0:0:0.34"/>
+					</Transitions>
+				</Border.Transitions>
+
+				<ScrollViewer
+					VerticalScrollBarVisibility="Hidden">
+					
+					<StackPanel Spacing="5">
+						<StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+							<Svg Path="{DynamicResource HorizontalLogoIcon}" Width="130"
+								 VerticalAlignment="Top" Margin="10 0 0 0"
+								 IsVisible="{Binding IsSideMenuVisible}"
+								 PointerPressed="ChangeSideMenuVisiblity_PointerPressed"/>
+							
+							<Svg Path="{DynamicResource RoundLogoIcon}" Width="40"
+								 VerticalAlignment="Top" Margin="10 0 0 0"
+								 IsVisible="{Binding !IsSideMenuVisible}"
+								 PointerPressed="ChangeSideMenuVisiblity_PointerPressed"/>
+							
+						</StackPanel>
+						
+						<TextBlock Text="Основное" Margin="10 20 0 0" IsVisible="{Binding IsSideMenuVisible}"
+								   Foreground="{DynamicResource PrimaryForeground}"/>
+
+						<!--Кнопки навигации между окнами-->
+						<StackPanel Spacing="5" Margin="10 0 0 0">
+
+							<Button HorizontalAlignment="Stretch" Click="OpenCommunity_ButtonClick">
+								<StackPanel Orientation="Horizontal" Spacing="5">
+									<Svg Path="{DynamicResource CommunityIcon}" Width="20"/>
+									<TextBlock Text="Сообщество" VerticalAlignment="Center"
+											   IsVisible="{Binding IsSideMenuVisible}"/>
+								</StackPanel>
+							</Button>
+
+							<!--Иконка и текст Мои цели-->
+							<Button HorizontalAlignment="Stretch" IsVisible="{Binding !IsAdmin}"
+									Click="OpenMyGoals_ButtonClick">
+								<StackPanel Orientation="Horizontal" Spacing="5">
+									<Svg Path="{DynamicResource GoalIcon}" Width="20"/>
+									<TextBlock Text="Мои цели" VerticalAlignment="Center"
+											   IsVisible="{Binding IsSideMenuVisible}"/>
+								</StackPanel>
+							</Button>
+
+							<!--Иконка и текст Мои задачи-->
+							<Button HorizontalAlignment="Stretch" IsVisible="{Binding !IsAdmin}"
+									Click="OpenMyTasks_ButtonClick">
+								<StackPanel Orientation="Horizontal" Spacing="5">
+									<Svg Path="{DynamicResource TaskIcon}" Width="20"/>
+									<TextBlock Text="Мои задачи" VerticalAlignment="Center"
+											   IsVisible="{Binding IsSideMenuVisible}"/>
+								</StackPanel>
+							</Button>
+						</StackPanel>
+
+
+						<!--Раздел аккаунта-->
+						<TextBlock Text="Аккаунт" Margin="10 20 0 0" IsVisible="{Binding IsSideMenuVisible}"
+								   Foreground="{DynamicResource PrimaryForeground}"/>
+
+						<StackPanel Spacing="5" Margin="10 0 0 0">
+						<!--Иконка и текст Мои задачи-->
+							<Button HorizontalAlignment="Stretch"
+									Click="OpenMyProfile_ButtonClick">
+								<StackPanel Orientation="Horizontal" Spacing="5">
+									<Svg Path="{DynamicResource ProfileIcon}" Width="20"/>
+									<TextBlock Text="Мой профиль" VerticalAlignment="Center"
+											   IsVisible="{Binding IsSideMenuVisible}"/>
+								</StackPanel>
+							</Button>
+
+							<Button HorizontalAlignment="Stretch" IsVisible="{Binding !IsAdmin}"
+									Click="OpenMyPosts_ButtonClick">
+								<StackPanel Orientation="Horizontal" Spacing="5">
+									<Svg Path="{DynamicResource MyPostsIcon}" Width="20"/>
+									<TextBlock Text="Мои посты" VerticalAlignment="Center"
+											   IsVisible="{Binding IsSideMenuVisible}"/>
+								</StackPanel>
+							</Button>
+
+							<Button HorizontalAlignment="Stretch" IsVisible="{Binding !IsAdmin}"
+									Click="OpenMyAnalytics_ButtonClick">
+								<StackPanel Orientation="Horizontal" Spacing="5">
+									<Svg Path="{DynamicResource AnalyticsIcon}" Width="20"/>
+									<TextBlock Text="Аналитика" VerticalAlignment="Center"
+											   IsVisible="{Binding IsSideMenuVisible}"/>
+								</StackPanel>
+							</Button>
+
+							<Button HorizontalAlignment="Stretch" IsVisible="{Binding !IsAdmin}"
+									Click="ShowMyBonuses_ButtonClick">
+								<StackPanel Orientation="Horizontal" Spacing="5">
+									<Svg Path="{DynamicResource MyDiscountsIcon}" Width="20"/>
+									<TextBlock Text="Мои бонусы" VerticalAlignment="Center"
+											   IsVisible="{Binding IsSideMenuVisible}"/>
+								</StackPanel>
+							</Button>
+						</StackPanel>
+
+
+						<!--Раздел ДРУГОЕ-->
+						<TextBlock Text="Другое" Margin="10 20 0 0" IsVisible="{Binding IsSideMenuVisible}"
+								   Foreground="{DynamicResource PrimaryForeground}"/>
+						
+						<StackPanel Spacing="5" Margin="10 0 0 0">
+							<Button HorizontalAlignment="Stretch"
+									Click="ShowNews_ButtonClick">
+								<StackPanel Orientation="Horizontal" Spacing="5">
+									<Svg Path="{DynamicResource NewsIcon}" Width="20"/>
+									<TextBlock Text="Новости" VerticalAlignment="Center"
+											   IsVisible="{Binding IsSideMenuVisible}"/>
+								</StackPanel>
+							</Button>
+
+							<Button HorizontalAlignment="Stretch" IsVisible="{Binding !IsAdmin}"
+									Click="ShowSubscriptionInfo_ButtonClick">
+								<StackPanel Orientation="Horizontal" Spacing="5">
+									<Svg Path="{DynamicResource SubscriptionIcon}" Width="20"/>
+									<TextBlock Text="Подписка" VerticalAlignment="Center"
+											   IsVisible="{Binding IsSideMenuVisible}"/>
+								</StackPanel>
+							</Button>
+
+							<Button HorizontalAlignment="Stretch" IsVisible="{Binding !IsAdmin}"
+									Click="ShowBonusProgram_ButtonClick">
+								<StackPanel Orientation="Horizontal" Spacing="5">
+									<Svg Path="{DynamicResource LoyaltyIcon}" Width="20"/>
+									<TextBlock Text="Бонусная программа" VerticalAlignment="Center"
+											   IsVisible="{Binding IsSideMenuVisible}"/>
+								</StackPanel>
+							</Button>
+							
+						</StackPanel>
+
+
+						<!--Выход из аккаунта и приложения-->
+						<StackPanel Orientation="Horizontal" Margin="0 0 0 0">
+							<!--Тут будет иконка-->
+							<Button Margin="10 10 0 0"
+									Foreground="{DynamicResource PrimaryBackground}"
+									ToolTip.Tip="Выйти из приложения"
+									IsVisible="{Binding IsSideMenuVisible}"
+									Click="ExitFromApp_ButtonClick">
+								
+								<Svg Path="{DynamicResource TurnOffIcon}"
+										 Width="20"
+										 VerticalAlignment="Top" Margin="0 0 0 0"/>
+							</Button>
+
+							<Button Margin="10 10 0 0"
+									Foreground="{DynamicResource PrimaryBackground}"
+									ToolTip.Tip="Выйти из аккаунта"
+									IsVisible="{Binding IsSideMenuVisible}"
+									Click="Logout_ButtonClick">
+								
+									<Svg Path="{DynamicResource LogoutIcon}"
+										 Width="20"
+										 VerticalAlignment="Top" Margin="0 0 0 0"/>
+							</Button>
+						</StackPanel>
+					</StackPanel>
+				</ScrollViewer>
+			</Border>
+				
+			<ContentControl Name="ContentControlContainer" Grid.Column="1"
+							Margin="10"/>
+		</Grid>
+	</Border>
+</Window>

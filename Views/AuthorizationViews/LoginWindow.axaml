@@ -1,0 +1,112 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="1000" d:DesignHeight="600"
+		Width="1000" Height="600"
+        x:Class="Diploma_Ishchenko.LoginWindow"
+		WindowStartupLocation="CenterScreen"
+		SystemDecorations="None"
+		Background="Transparent"
+		x:CompileBindings="False"
+		PointerPressed="OnPointerPressed"
+        PointerMoved="OnPointerMoved"
+        PointerReleased="OnPointerReleased"
+        Title="LoginWindow">
+	
+	<Border Background="{DynamicResource PrimaryBackground}"
+			CornerRadius="10">
+		<Border BorderBrush="{DynamicResource ButtonBackgroundGradient}"
+				BorderThickness="1" CornerRadius="10">
+			
+			<Grid ShowGridLines="False">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="*"/>
+					<ColumnDefinition Width="*"/>
+				</Grid.ColumnDefinitions>
+
+				<StackPanel Grid.Row="0" Margin="20" Spacing="5">
+				
+					<Border>
+						<Svg Path="{DynamicResource LoginImage}"
+							 Grid.Column="0"
+							 Width="500"
+							 HorizontalAlignment="Left"
+							 VerticalAlignment="Top" Margin="0 10 0 0"/>
+					</Border>
+
+					<!--Тут будет иконка-->
+					<Button Margin="0 10 0 0"
+							CornerRadius="20"
+							Foreground="{DynamicResource PrimaryBackground}"
+							ToolTip.Tip="Выйти из приложения"
+							Click="Exit_ButtonClick">
+						
+						<Svg Path="{DynamicResource TurnOffIcon}"
+							 Width="20" Height="20"
+							 VerticalAlignment="Top" Margin="0 0 0 0"/>
+					</Button>
+				</StackPanel>
+
+
+				<!--Второй столбец-->
+				<StackPanel Grid.Column="1" Spacing="10" Width="300" HorizontalAlignment="Center">
+					<Svg Path="{DynamicResource HorizontalLogoIcon}"
+						 Grid.Column="1"
+						 Width="152"
+						 VerticalAlignment="Top" Margin="0 20 0 0"/>
+
+					<StackPanel Orientation="Horizontal" Spacing="10" Margin="0 0 0 0"
+								HorizontalAlignment="Center">
+						<Button Content="Вход" 
+								Classes="TransparentButton"
+								Click="ChooseLogin_ButtonClick"/>
+					
+						<Button Content="Регистрация"
+								Classes="TransparentButton"
+								Click="ChooseRegister_ButtonClick"/>
+					</StackPanel>
+				
+					<TextBox Watermark="Email" Width="300" Name="EmailTextBox"/>
+				
+					<TextBox Watermark="Nickname" Width="300" IsVisible="{Binding IsRegister}" Name="NicknameTextBox"/>
+				
+					<TextBox Watermark="ФИО" Width="300" IsVisible="{Binding IsRegister}" Name="UsernameTextBox"/>
+
+					<TextBox Watermark="Пароль" Width="300" Name="PasswordTextBox"
+							 PasswordChar="*"/>
+
+					<TextBox Watermark="Повтор пароля" Width="300" IsVisible="{Binding IsRegister}" Name="RepeatPasswordTextBox"
+							 PasswordChar="*"/>
+
+					<TextBlock Name="ErrorMessage" Foreground="Red" FontSize="12" IsVisible="False"/>
+				
+					<StackPanel Orientation="Horizontal" Spacing="5" Margin="0 5 0 5">
+						<TextBlock Text="Забыли пароль?" VerticalAlignment="Center"
+								   Foreground="{DynamicResource PrimaryForeground}" />
+						<Button Content="Восстановить" Classes="TransparentButton"
+								Click="RecoverPassword_ButtonClick"/>
+					</StackPanel>
+				
+				
+					<Button Content="Войти с помощью Google" Width="300" HorizontalAlignment="Center"
+							HorizontalContentAlignment="Center"
+							Click="GoogleAuth_ButtonClick"/>
+				
+					<Button Content="Войти" Width="300" HorizontalAlignment="Center"
+							IsVisible="{Binding !IsRegister}"
+							Click="LoginAccount_ButtonClick"
+							HorizontalContentAlignment="Center"/>
+
+					<Button Content="Зарегистрироваться" Width="300" HorizontalAlignment="Center"
+							HorizontalContentAlignment="Center"
+							Click="RegisterAccount_ButtonClick"
+							IsVisible="{Binding IsRegister}"/>
+				
+				</StackPanel>
+			
+			</Grid>
+		</Border>
+	</Border>
+
+</Window>

@@ -1,0 +1,74 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+			 x:CompileBindings="False"
+             x:Class="Diploma_Ishchenko.PublishPostUserControl">
+
+		<Grid ShowGridLines="False">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="Auto"/>
+				<RowDefinition Height="*"/>
+				<RowDefinition Height="Auto"/>
+			</Grid.RowDefinitions>
+
+			<!--Заголовок-->
+			<StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="10">
+				<TextBlock Text="Публикация результатов " FontSize="15" Margin="10 0 0 0"
+						   Foreground="{DynamicResource PrimaryForeground}"/>
+			</StackPanel>
+
+			<!--Основная информация-->
+			<ScrollViewer VerticalScrollBarVisibility="Hidden" Grid.Row="1">
+				<StackPanel Spacing="10" Margin="10">
+					<TextBox Watermark="Добавьте заголовок"
+							 Classes="Custom" Margin="10"
+							 Name="PostTitleTextBox"/>
+
+					<TextBox Watermark="Добавьте описание к вашей публикации"
+							 Classes="Custom" Height="150" Margin="10"
+							 TextWrapping="Wrap"
+							 AcceptsReturn="True"
+							 AcceptsTab="True"
+							 Name="PostDescriptionTextBox"/>
+
+					<TextBlock Text="Здесь вы можете прикрепить связанные фотографии" Margin="10"
+							   TextWrapping="Wrap"
+							   Foreground="{DynamicResource PrimaryForeground}"/>
+
+					<Button Content="Добавить изображения" Click="AddImages_Click"
+							Margin="10 0 0 0"/>
+
+					<!--Список выбранных фотографий для передачи в посты-->
+					<ListBox ItemsSource="{Binding PostImagesCollection}"
+							 Margin="10 0 0 0">
+						<ListBox.ItemsPanel>
+							<ItemsPanelTemplate>
+								<StackPanel Orientation="Horizontal" Spacing="10"/>
+							</ItemsPanelTemplate>
+						</ListBox.ItemsPanel>
+						<ListBox.ItemTemplate>
+							<DataTemplate>
+								<StackPanel Orientation="Vertical">
+									<Image Source="{Binding Bitmap}" Height="100" Width="100"/>
+									<Button Content="Удалить"
+											HorizontalContentAlignment="Center"
+											HorizontalAlignment="Stretch"
+											Click="RemoveImage_Click"
+											DataContext="{Binding}"/>
+								</StackPanel>
+							</DataTemplate>
+						</ListBox.ItemTemplate>
+					</ListBox>
+
+				</StackPanel>
+			</ScrollViewer>
+
+			<!--Кнопки-->
+			<StackPanel Orientation="Horizontal" Grid.Row="2" Margin="10" Spacing="10">
+				<Button Content="Опубликовать" Click="Publish_Click"/>
+				<Button Content="Отмена" Click="Cancel_Click"/>
+			</StackPanel>
+		</Grid>
+</UserControl>

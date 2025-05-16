@@ -1,0 +1,66 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="540"
+		Width="400" Height="540"
+		WindowStartupLocation="CenterScreen"
+		x:CompileBindings="False"
+		SystemDecorations="None"
+        x:Class="Diploma_Ishchenko.BanUserWindow"
+        Title="BanUserWindow">
+	<Border CornerRadius="20" Background="{DynamicResource PrimaryBackground}"
+			  ClipToBounds="True"
+			  BorderBrush="{DynamicResource ButtonBackgroundGradient}" BorderThickness="1">
+		<Grid ShowGridLines="False">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="Auto"/>
+				<RowDefinition Height="*"/>
+				<RowDefinition Height="Auto"/>
+			</Grid.RowDefinitions>
+
+			<Panel Grid.Row="0" Background="{DynamicResource ButtonBackgroundGradient}"/>
+
+			<StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
+				<TextBlock Text="Блокировка доступа" FontSize="15" Foreground="{DynamicResource PrimaryBackground}"/>
+			</StackPanel>
+
+			<ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Hidden"
+						  HorizontalAlignment="Stretch">
+				<StackPanel Orientation="Vertical" Grid.Row="1" Margin="10"
+							Width="370" Spacing="10">
+					
+					<TextBlock Text="Заполните необходимые данные" FontWeight="Bold"
+							   HorizontalAlignment="Center" Margin="0 10 0 0" FontSize="15"
+							   Foreground="{DynamicResource PrimaryForeground}"/>
+					
+					<TextBlock Text="Длительность блокировки: " Margin="20 20 0 0"
+							   Foreground="{DynamicResource PrimaryForeground}"/>
+
+					<ComboBox PlaceholderText="Выберите длительность" Margin="15 0 0 0"
+							  HorizontalAlignment="Stretch" 
+							  SelectionChanged="SelectDuration_SelectionChanged">
+						<ComboBoxItem Content="3 дня"/>
+						<ComboBoxItem Content="7 дней"/>
+						<ComboBoxItem Content="1 мес"/>
+						<ComboBoxItem Content="полгода"/>
+						<ComboBoxItem Content="год"/>
+						<ComboBoxItem Content="навсегда"/>
+					</ComboBox>
+					 
+					<TextBlock Text="Укажите причину блокировки:" Margin="20 10 0 0"
+							   Foreground="{DynamicResource PrimaryForeground}"/>
+					
+					<TextBox Watermark="Введите здесь" Margin="20 0 0 0"
+							 AcceptsReturn="True" AcceptsTab="True"
+							 Name="ReasonTextBox"
+							 TextWrapping="Wrap" Height="150"/>
+					
+					<Button Content="Подтвердить" Margin="20 10 0 0"
+							Click="ApplyBanning_ButtonClick"/>
+				</StackPanel>
+			</ScrollViewer>
+			
+		</Grid>
+	</Border>
+</Window>

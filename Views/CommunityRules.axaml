@@ -1,0 +1,93 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="450" d:DesignHeight="1000"
+		Width="400" Height="540"
+		WindowStartupLocation="CenterScreen"
+		SystemDecorations="None"
+		Background="Transparent"
+        x:Class="Diploma_Ishchenko.CommunityRules"
+        Title="CommunityRules">
+	
+	<Border CornerRadius="20" Background="{DynamicResource PrimaryBackground}"
+			  ClipToBounds="True"
+			  BorderBrush="{DynamicResource ButtonBackgroundGradient}" BorderThickness="1">
+		<Grid ShowGridLines="False">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="Auto"/>
+				<RowDefinition Height="*"/>
+				<RowDefinition Height="Auto"/>
+			</Grid.RowDefinitions>
+
+			<Panel Grid.Row="0" Background="{DynamicResource ButtonBackgroundGradient}"/>
+			<!--Заголовок-->
+			<StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
+				<TextBlock Text="Правила сообщества " FontSize="15" Foreground="{DynamicResource PrimaryBackground}"/>			
+			</StackPanel>
+
+			<!--Информация-->
+			<ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Hidden"
+						  HorizontalAlignment="Stretch">
+				<StackPanel Orientation="Vertical" Grid.Row="1" Margin="10"
+							Width="370">
+
+					<!--Приветственный текст-->
+					<TextBlock Text="Добро пожаловать в наше сообщество! Чтобы общение было приятным и полезным для всех участников, просим соблюдать следующие правила при публикации постов и комментариев: "
+							   Margin="10 10 0 0" Foreground="{DynamicResource PrimaryForeground}"
+							   TextWrapping="Wrap" TextAlignment="Center"/>
+
+					<!--Правила-->
+					<TextBlock Text="1. Уважайте других участников" Margin="10 20 0 0" FontWeight="Bold"
+							   Foreground="{DynamicResource ButtonBackgroundGradient}"/>
+
+					<TextBlock Text="Избегайте оскорблений, унижений и личных нападок." Margin="30 10 0 0" Foreground="{DynamicResource PrimaryForeground}"
+							   TextWrapping="Wrap"/>
+
+					<TextBlock Text="2. Запрещены нецензурные выражения" Margin="10 20 0 0" FontWeight="Bold"
+							   Foreground="{DynamicResource ButtonBackgroundGradient}"/>
+					
+					<TextBlock Text="Не используйте мат и грубую лексику." Margin="30 10 0 0" Foreground="{DynamicResource PrimaryForeground}"/>
+
+					
+					<TextBlock Text="3. Не призывайте к насилию и экстремизму" Margin="10 20 0 0" FontWeight="Bold"
+							   Foreground="{DynamicResource ButtonBackgroundGradient}"/>
+
+					<TextBlock Text="Запрещены любые призывы к насильственным действиям, экстремистским и террористическим организациям." 
+							   Margin="30 10 0 0" Foreground="{DynamicResource PrimaryForeground}" TextWrapping="Wrap"/>
+
+
+					<TextBlock Text="4. Отказ от дискриминации" Margin="10 20 0 0" FontWeight="Bold"
+							   Foreground="{DynamicResource ButtonBackgroundGradient}"/>
+					
+					<TextBlock Text="Не допускаются высказывания, содержащие расизм, сексизм, ксенофобию, а также принижение по национальному, религиозному, политическому или любому другому признаку." Margin="30 10 0 0"
+							   Foreground="{DynamicResource PrimaryForeground}"
+							   TextWrapping="Wrap"/>
+
+					<TextBlock Text="5. Соблюдайте закон" Margin="10 20 0 0" FontWeight="Bold"
+							   Foreground="{DynamicResource ButtonBackgroundGradient}"/>
+					
+					<TextBlock Text="Не публикуйте материалы, нарушающие законодательство." Margin="30 10 0 0 " Foreground="{DynamicResource PrimaryForeground}"
+							   TextWrapping="Wrap"/>
+
+					<TextBlock Text="6. Будьте конструктивны" Margin="10 20 0 0" FontWeight="Bold"
+							   Foreground="{DynamicResource ButtonBackgroundGradient}"/>
+
+					<TextBlock Text="Публиковать посты" Margin="30 10 0 0" Foreground="{DynamicResource PrimaryForeground}"/>
+					
+					<TextBlock Text="Старайтесь выражать свои мысли вежливо и по существу." Margin="30 10 0 0"
+							   TextWrapping="Wrap" Foreground="{DynamicResource PrimaryForeground}"/>
+
+				</StackPanel>
+			</ScrollViewer>
+
+
+			<!--Кнопка перехода к оформлению-->
+
+			<StackPanel Orientation="Horizontal" Margin="10" Spacing="10" Grid.Row="2"
+						HorizontalAlignment="Center">
+				<Button Content="OK" Click="OK_ButtonClick" Width="150" HorizontalContentAlignment="Center"/>
+			</StackPanel>
+		</Grid>
+	</Border>
+</Window>

@@ -1,0 +1,54 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="190"	
+		Width="400" Height="190"
+        x:Class="Diploma_Ishchenko.MessageBox"
+		x:CompileBindings="False"
+		WindowStartupLocation="CenterScreen"
+		SystemDecorations="None"
+		Background="Transparent"
+        Title="MessageBox">
+	
+	<Border Background="{DynamicResource PrimaryBackground}"
+			BorderBrush="{DynamicResource ButtonBackgroundGradient}"
+			BorderThickness="1"
+			CornerRadius="20" ClipToBounds="True">
+		<Grid ShowGridLines="False">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="Auto"/>
+				<RowDefinition Height="*"/>
+				<RowDefinition Height="Auto"/>
+			</Grid.RowDefinitions>
+
+			<StackPanel Background="{DynamicResource ButtonBackgroundGradient}">
+				<TextBlock Text="Сообщение" Padding="10" FontWeight="ExtraBold"
+						   Margin="10 0 0 0"
+						   Foreground="{DynamicResource PrimaryBackground}"/>
+			</StackPanel>
+			
+			<TextBlock Grid.Row="1" Margin="10" 
+					   Text="{Binding BoxMessage}" 
+					   Foreground="{DynamicResource PrimaryForeground}"
+					   TextAlignment="Left"
+					   TextWrapping="Wrap"/>
+
+			<StackPanel Orientation="Horizontal" Grid.Row="2" HorizontalAlignment="Right">
+				<Button Grid.Row="2" HorizontalAlignment="Right"
+					Content="OK" Width="90" Margin="5"
+					FontSize="10"
+					Click="OK_ButtonClick"
+					HorizontalContentAlignment="Center"/>
+
+				<Button Grid.Row="2" HorizontalAlignment="Right"
+						IsVisible="False"
+						Name="CancelButton"
+						Content="Отмена" Width="90" Margin="5"
+						FontSize="10"
+						Click="Cancel_ButtonClick"
+						HorizontalContentAlignment="Center"/>
+			</StackPanel>
+		</Grid>
+	</Border>
+</Window>

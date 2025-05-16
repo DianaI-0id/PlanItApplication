@@ -1,0 +1,59 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+			 x:CompileBindings="False"
+             x:Class="Diploma_Ishchenko.EditSelectedNewsUserControl">
+		<!-- Используем тот же XAML что и в AddNewsUserControl, но с изменениями -->
+		<Grid ShowGridLines="False">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="Auto"/>
+				<RowDefinition Height="*"/>
+				<RowDefinition Height="Auto"/>
+			</Grid.RowDefinitions>
+
+			<TextBlock Text="Редактирование новости" Classes="Title" Grid.Row="0"
+					   Foreground="{DynamicResource PrimaryForeground}"/>
+
+			<ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Row="1">
+				<StackPanel Margin="10 20 10 20" Spacing="10">
+					<TextBox x:Name="TitleTextBox" Text="{Binding Title}"
+                             Watermark="Заголовок" Classes="Custom"/>
+					<TextBox x:Name="ContentTextBox" Text="{Binding Content}"
+                             Classes="Custom" Watermark="Описание"
+                             Height="200" TextWrapping="Wrap"/>
+
+					<ListBox x:Name="ImagesListBox" ItemsSource="{Binding Images}">
+						<ListBox.ItemsPanel>
+							<ItemsPanelTemplate>
+								<WrapPanel Orientation="Horizontal" Margin="10 0 10 0"/>
+							</ItemsPanelTemplate>
+						</ListBox.ItemsPanel>
+						<ListBox.ItemTemplate>
+							<DataTemplate>
+								<StackPanel Spacing="5" Width="150">
+									<Border CornerRadius="10" ClipToBounds="True">
+										<Image Source="{Binding Bitmap}"
+                                               Height="100" Stretch="Uniform"/>
+									</Border>
+									<Button Content="Удалить" Click="OnRemoveImageClick"
+                                            Tag="{Binding}"/>
+								</StackPanel>
+							</DataTemplate>
+						</ListBox.ItemTemplate>
+					</ListBox>
+
+					<Button Content="Добавить изображение" Margin="10 0 0 0" Click="OnAddImageClick"/>
+				</StackPanel>
+			</ScrollViewer>
+
+			<Border Grid.Row="2" Background="{DynamicResource SideMenuGradient}"
+                    CornerRadius="10" Margin="10">
+				<StackPanel Orientation="Horizontal" Spacing="10" Margin="10">
+					<Button Content="Сохранить" Click="OnSaveClick"/>
+					<Button Content="Отменить" Click="OnCancelClick"/>
+				</StackPanel>
+			</Border>
+		</Grid>
+</UserControl>

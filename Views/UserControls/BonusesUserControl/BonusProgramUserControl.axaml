@@ -1,0 +1,162 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="500"
+			 x:CompileBindings="False"
+             x:Class="Diploma_Ishchenko.BonusProgramUserControl">
+	<Grid ShowGridLines="False">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="*"/>
+			<RowDefinition Height="Auto"/>
+		</Grid.RowDefinitions>
+
+		<TextBlock Text="Бонусная программа" Classes="Title" Grid.Row="0"/>
+		
+		<!--Тут должно выводиться описание-->
+
+		<Button Width="40" Height="40" HorizontalAlignment="Right" Margin="0 10 20 0" CornerRadius="50"
+				Content="?" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+				ToolTip.Tip="Выполняйте задачи, получайте за них бонусы и обменивайте бонусы на подарочные карты! ДОСТУПНО ТОЛЬКО ПО ПОДПИСКЕ">
+		</Button>
+		
+		<!--А тут список бонусов пользователя-->
+		<Border Background="{DynamicResource SideMenuGradient}"
+				CornerRadius="10"
+				Margin="10"
+				Grid.Row="3">
+			<Border.Styles>
+				<Style Selector="Border">
+					<Setter Property="BoxShadow"
+							Value="{Binding Source={StaticResource ShadowColor}, 
+										  Converter={StaticResource ShadowConverter}}"/>
+				</Style>
+			</Border.Styles>
+			
+			<TextBlock Text="{Binding UserBonusesCount, StringFormat=Доступные баллы: {0}}"
+					   Margin="20 10 10 10" FontWeight="ExtraBold"
+					   Foreground="{DynamicResource ButtonBackgroundGradient}"
+					   FontSize="14"/>
+			</Border>
+		
+		<!--Сортировка по конкретному типу подарочной карты-->
+		<StackPanel Orientation="Horizontal" Grid.Row="2" Margin="20 0 0 0">
+			<TextBlock Text="Фильтрация по типу подарочной карты" VerticalAlignment="Center"
+					   Foreground="{DynamicResource PrimaryForeground}"/>
+			<ComboBox Margin="10 5 10 5" Width="300" ItemsSource="{Binding CardSectionsCollection}"
+					  SelectionChanged="SelectCardSection_SelectionChanged"
+					  CornerRadius="10"/>
+		</StackPanel>
+		
+		<!--А тут список всех бонусов с возможностью фильтрации по типу-->
+		<ScrollViewer VerticalScrollBarVisibility="Hidden" Grid.Row="4">
+			<ListBox Grid.Row="4" ItemsSource="{Binding GiftCardsCollection}"
+				 IsEnabled="{Binding IsUserHasSubscription}">
+				<ListBox.ItemTemplate>
+					<DataTemplate>
+						<Border Background="{DynamicResource SideMenuGradient}"
+								Padding="10"
+								Height="240"
+								CornerRadius="10">
+
+							<Border.Styles>
+								<Style Selector="Border">
+									<Setter Property="BoxShadow"
+											Value="{Binding Source={StaticResource ShadowColor}, 
+										  Converter={StaticResource ShadowConverter}}"/>
+								</Style>
+							</Border.Styles>
+
+							<Grid ShowGridLines="False">
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition Width="2*"/>
+									<ColumnDefinition Width="*"/>
+									<ColumnDefinition Width="*"/>
+									<ColumnDefinition Width="*"/>
+								</Grid.ColumnDefinitions>
+
+								<Grid.RowDefinitions>
+									<RowDefinition Height="*"/>
+									<RowDefinition Height="Auto"/>
+								</Grid.RowDefinitions>
+
+								<!--Карточка-->
+								<Border Background="{Binding BorderCardColor}" Margin="10" Padding="10"
+										CornerRadius="10" Grid.Column="0">
+									<Border.Styles>
+										<Style Selector="Border">
+											<Setter Property="BoxShadow"
+													Value="{Binding Source={StaticResource ShadowColor}, 
+													Converter={StaticResource ShadowConverter}}"/>
+										</Style>
+									</Border.Styles>
+									<!--тут будут данные карточки-->
+									<Panel Margin="10 10 0 0">
+										<StackPanel Spacing="5" >
+											<TextBlock Text="{Binding CardType}" FontSize="20"
+													   TextWrapping="Wrap"
+													   FontWeight="ExtraBold"/>
+
+											<TextBlock Text="Подарочная карта" FontSize="14"/>
+										</StackPanel>
+
+										<!--Раздел в самом низу-->
+										<TextBlock Text="{Binding CardSection}" Margin="10"
+												   VerticalAlignment="Bottom"
+												   HorizontalAlignment="Right"
+												   FontWeight="Heavy"/>
+									</Panel>
+								</Border>
+
+								<!--В самом низу стоимость-->
+								<TextBlock Text="{Binding BonusCost, StringFormat=Стоимость в баллах: {0:F0}}" Grid.Row="1"
+										   Margin="10" FontSize="14" FontWeight="ExtraBold"
+										   VerticalAlignment="Bottom"
+										   Foreground="{DynamicResource PrimaryForeground}"/>
+
+								<!--Номинал-->
+								<StackPanel Grid.Column="1" VerticalAlignment="Center">
+									<TextBlock Text="Номинал" HorizontalAlignment="Center"
+												Foreground="{DynamicResource PrimaryForeground}"/>
+									<TextBlock Text="{Binding Balance, StringFormat={}{0:F0} Р}" HorizontalAlignment="Center"
+											   FontSize="16" FontWeight="ExtraBold"
+												Foreground="{DynamicResource PrimaryForeground}"/>
+								</StackPanel>
+
+								<!--Количество доступных-->
+								<StackPanel Grid.Column="2" VerticalAlignment="Center">
+									<TextBlock Text="В наличии" HorizontalAlignment="Center"
+											   Foreground="{DynamicResource PrimaryForeground}"/>
+
+									<TextBlock Text="{Binding Quantity}" HorizontalAlignment="Center"
+											   FontSize="16" FontWeight="ExtraBold"
+											   Foreground="{DynamicResource PrimaryForeground}"
+											   IsVisible="{Binding !IsNotExistsVisible}"/>
+
+									<TextBlock Text="Нет в наличии" Foreground="Red"
+											   IsVisible="{Binding IsNotExistsVisible}"
+											   HorizontalAlignment="Center"/>
+								</StackPanel>
+
+								<!--Кнопка обмена-->
+								<Button Content="Обменять" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center"
+										Click="ExchangeBonusesForCard_ButtonClick"/>
+							</Grid>
+						</Border>
+					</DataTemplate>
+				</ListBox.ItemTemplate>
+			</ListBox>
+		</ScrollViewer>
+		
+		<TextBlock Text="Если вы хотели приобрести карту, которой в данный момент нет в наличии, дождитесь ее обновления в списке в течение 1-3 дней"
+				   Grid.Row="5"
+				   FontWeight="Bold"
+				   Margin="20 10 10 10"
+				   TextWrapping="Wrap"
+				   Foreground="{DynamicResource ButtonBackgroundGradient}"/>
+	</Grid>
+</UserControl>

@@ -1,0 +1,142 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+			 x:CompileBindings="False"
+             x:Class="Diploma_Ishchenko.PersonalGoalsUserControl">
+	<Grid ShowGridLines="False">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="*"/>
+			<RowDefinition Height="Auto"/>
+		</Grid.RowDefinitions>
+
+		<TextBlock Text="Мои цели" Classes="Title" Grid.Row="0"
+				   Foreground="{DynamicResource PrimaryForeground}"/>
+
+		<!--Выводим когда целей нет-->
+		<StackPanel Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center"
+					IsVisible="{Binding !IsGoalsExists}">
+			<Grid Width="310" Height="310">
+				<Ellipse Fill="{DynamicResource ButtonBackgroundGradient}"/>
+				<Ellipse Width="300" Height="300">
+					<Ellipse.Fill>
+						<ImageBrush Source="{DynamicResource RelaxIllustration}" Stretch="UniformToFill"/>
+					</Ellipse.Fill>
+				</Ellipse>
+			</Grid>
+
+			<StackPanel HorizontalAlignment="Center" Margin="0 10 0 0">
+				<TextBlock Text="Цели отсутствуют" FontWeight="DemiBold"
+					   HorizontalAlignment="Center" FontSize="20"
+					   TextAlignment="Center"
+					   Foreground="{DynamicResource PrimaryForeground}"/>
+
+				<TextBlock Text="Вы можете добавить новую цель, нажав + в нижнем левом углу окна"
+						   HorizontalAlignment="Center" FontSize="15"
+						   TextAlignment="Center" TextWrapping="Wrap"
+						   Foreground="{DynamicResource PrimaryForeground}"/>
+			</StackPanel>
+		</StackPanel>
+
+		<!--Выводим когда цели есть-->
+
+			<ListBox ItemsSource="{Binding GoalsCollection}" Grid.Row="2" Margin="10"
+					 ScrollViewer.VerticalScrollBarVisibility="Hidden"
+					 Background="Transparent">
+				<ListBox.ItemTemplate>
+					<DataTemplate>
+						<Border Background="{DynamicResource SideMenuGradient}"
+								Padding="10"
+								CornerRadius="10">
+
+							<Border.Styles>
+								<Style Selector="Border">
+									<Setter Property="BoxShadow"
+											Value="{Binding Source={StaticResource ShadowColor}, 
+													Converter={StaticResource ShadowConverter}}"/>
+								</Style>
+							</Border.Styles>
+
+							<Grid ShowGridLines="False"
+								  RowDefinitions="Auto, Auto"
+								  ColumnDefinitions="*, Auto">
+
+								<!--Наименование и описание цели-->
+								<StackPanel Orientation="Vertical" Spacing="10" Grid.Column="0" Margin="10">
+
+									<StackPanel Orientation="Horizontal" Spacing="10">
+
+										<TextBlock Text="{Binding Title}" FontWeight="Bold" TextWrapping="Wrap" TextAlignment="Left"
+												FontSize="18" VerticalAlignment="Center"
+												   Foreground="{DynamicResource ButtonBackgroundGradient}"/>
+
+										<!--Будем выводить сколько задач есть для данной цели еще не выполненных-->
+										<Border Width="30" Height="30" CornerRadius="20" Background="{DynamicResource ButtonBackgroundGradient}"
+												ToolTip.Tip="Столько задач ожидает выполнения">
+											<TextBlock HorizontalAlignment="Center" VerticalAlignment="Center"
+													   Text="{Binding PendingTasksCount}"
+													   Foreground="{DynamicResource PrimaryBackground}"/>
+										</Border>
+									</StackPanel>
+								
+									<TextBlock Text="{Binding Description}" TextWrapping="Wrap" TextAlignment="Left"
+											   FontSize="14"/>
+
+								</StackPanel>
+
+								<!--Кнопка перехода в подробную информацию цели-->
+								<Button Grid.Column="3" Margin="10 0 10 0"
+										ToolTip.Tip="Показать всю информацию, создать, удалить и отредактировать задачи"
+										Click="ShowGoalDetails_ButtonClick">
+									
+									<StackPanel Orientation="Horizontal" Spacing="10">
+										<!--Текст-->
+										<TextBlock Text="Подробнее" Foreground="{DynamicResource PrimaryForeground}"/>
+									
+										<!--Иконка-->
+										<Svg Path="{DynamicResource ShowMore}"
+											 Width="15" Height="15"/>
+									</StackPanel>
+								</Button>
+
+								<StackPanel Orientation="Vertical" Grid.Row="1" IsVisible="False">
+									<Separator HorizontalAlignment="Center"/>
+
+									<TextBlock Grid.Row="1" Margin="10 10 0 0" Text="Посмотреть, удалить или добавить задачи можно в окне детальной информации по нажатию на кнопку Подробнее"
+											   TextWrapping="Wrap" FontSize="12"/>
+								</StackPanel>
+							</Grid>
+						</Border>
+					</DataTemplate>
+				</ListBox.ItemTemplate>
+			</ListBox>
+
+		<Border Grid.Row="3" Background="{DynamicResource SideMenuGradient}"
+				CornerRadius="10" Margin="10">
+			<Border.Styles>
+				<Style Selector="Border">
+					<Setter Property="BoxShadow"
+							Value="{Binding Source={StaticResource ShadowColor}, 
+													Converter={StaticResource ShadowConverter}}"/>
+				</Style>
+			</Border.Styles>
+
+			<Button Grid.Row="3"
+					Margin="10"
+					CornerRadius="20"
+					VerticalAlignment="Bottom"
+					HorizontalAlignment="Left"
+					Foreground="{DynamicResource ButtonBackgroundGradient}"
+					ToolTip.Tip="Добавить цель"
+					Click="AddPersonalGoal_ButtonClick">
+
+				<Svg Path="{DynamicResource AddIcon}"
+					 Width="15" Height="15"/>
+			</Button>
+		</Border>
+
+	</Grid>
+</UserControl>

@@ -1,0 +1,77 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+			 x:CompileBindings="False"
+             x:Class="Diploma_Ishchenko.NewsUserControl">
+	<Grid ShowGridLines="False">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="*"/>
+			<RowDefinition Height="Auto"/>
+		</Grid.RowDefinitions>
+
+		<TextBlock Text="Новости" Classes="Title" Grid.Row="0" Foreground="{DynamicResource PrimaryForeground}"/>
+
+		<!--Список новостей-->
+		<!--Тут будет первая фотка если их много, заголовок, часть текста и кнопка Подробнее-->
+
+		<ListBox ItemsSource="{Binding NewsCollection}" Grid.Row="1"
+				 Margin="10">
+			<ListBox.ItemTemplate>
+				<DataTemplate>
+					<Border CornerRadius="10" Background="{DynamicResource SideMenuGradient}" Padding="15">
+						<Border.Styles>
+							<Style Selector="Border">
+								<Setter Property="BoxShadow"
+										Value="{Binding Source={StaticResource ShadowColor}, 
+										  Converter={StaticResource ShadowConverter}}"/>
+							</Style>
+						</Border.Styles>
+						
+						<Grid ShowGridLines="False" ColumnDefinitions="*, Auto"
+													RowDefinitions="*, Auto">
+							
+							<StackPanel Orientation="Vertical" Spacing="10">
+								<TextBlock Text="{Binding Title}" FontWeight="ExtraBold" FontSize="20" Foreground="{DynamicResource ButtonBackgroundGradient}"/>
+								<TextBlock Text="{Binding Content}" TextWrapping="Wrap" Foreground="{DynamicResource PrimaryForeground}"
+										   MaxHeight="90" FontSize="16" />	
+							</StackPanel>
+							
+							<StackPanel HorizontalAlignment="Right" Margin="10 0 10 0" Spacing="10"
+										VerticalAlignment="Center" Grid.Column="1">
+								<Button Content="Подробнее" Width="150" HorizontalContentAlignment="Center" Click="ShowDetailNews_ButtonClick"/>
+								<Button Content="Редактировать" Width="150" HorizontalContentAlignment="Center"
+										Click="ShowEditNews_ButtonClick" CommandParameter="{Binding}"/>
+								<Button Content="Удалить" Width="150" HorizontalContentAlignment="Center"
+										Click="DeleteNews_ButtonClick" CommandParameter="{Binding}"/>
+							</StackPanel>
+							
+							<TextBlock Grid.Row="1" Text="{Binding CreatedAt, StringFormat=Создано {0}}"
+									   FontSize="10"
+									   Margin="0 20 0 0" FontWeight="ExtraBold" Foreground="{DynamicResource PrimaryForeground}"/>
+						</Grid>
+						
+					</Border>
+				</DataTemplate>
+			</ListBox.ItemTemplate>
+		</ListBox>
+
+		<Border Grid.Row="2" Background="{DynamicResource SideMenuGradient}"
+				CornerRadius="10" Margin="20 10 20 10">
+			<Border.Styles>
+				<Style Selector="Border">
+					<Setter Property="BoxShadow"
+							Value="{Binding Source={StaticResource ShadowColor}, 
+										  Converter={StaticResource ShadowConverter}}"/>
+				</Style>
+			</Border.Styles>
+			
+			<StackPanel Orientation="Horizontal" Spacing="10" Margin="10"
+						IsVisible="{Binding IsAdmin}">
+				<Button Content="Добавить новость" Click="AddNews_ButtonClick"/>
+			</StackPanel>
+		</Border>
+	</Grid>
+</UserControl>

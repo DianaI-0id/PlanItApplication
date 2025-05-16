@@ -1,0 +1,29 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+			 x:CompileBindings="False"
+             x:Class="Diploma_Ishchenko.PersonalGoalsDetailUserControl">
+	<Grid ShowGridLines="False">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="*"/>
+			<!--<RowDefinition Height="Auto"/>-->
+		</Grid.RowDefinitions>
+		
+		<!--Наименование цели-->
+		<StackPanel Orientation="Horizontal">
+			<TextBlock Text="{Binding _goal.Title}" Classes="Title" Margin="10 10 0 10"
+					   Foreground="{DynamicResource PrimaryForeground}"/>
+			<TextBlock Text=" - подробная информация" Classes="Title" Margin="0"
+					   Foreground="{DynamicResource PrimaryForeground}"/>
+		</StackPanel>
+
+		<!--Для вывода задач данной цели создадим contentcontrol, куда поместим список задач-->
+		<!--Вызывать будем с конструктором, принимающим цель-->
+		<ContentControl x:Name="GoalTasksContentControl" Grid.Row="2"/>
+		<!--Будем посылать запрос на вывод тех задач, которые выполнены / ожидают выполнения-->
+		
+	</Grid>
+</UserControl>

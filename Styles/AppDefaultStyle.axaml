@@ -1,0 +1,191 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <Design.PreviewWith>
+    <Border Padding="20">
+      <!-- Add Controls for Previewer Here -->
+		<Border Width="400" Height="300" Background="{DynamicResource PrimaryBackgroundGradient}">
+			<TextBlock Text="Content" Foreground="{DynamicResource PrimaryTextColor}"/>
+		</Border>
+    </Border>
+  </Design.PreviewWith>
+
+  <!-- Add Styles Here -->
+	
+	<!--Заливка всего окна-->
+	<Style Selector="Window">
+		<Setter Property="FontFamily" Value="{DynamicResource Uncage}"/>
+		<Setter Property="Background" Value="{DynamicResource PrimaryBackground}"/>
+	</Style>
+
+	<Style Selector="UserControl">
+		<Setter Property="FontFamily" Value="{DynamicResource Uncage}"/>
+		<Setter Property="Background" Value="{DynamicResource PrimaryBackground}"/>
+	</Style>
+
+	<!-- BUTTON   BUTTON   BUTTON   BUTTON   BUTTON   BUTTON   BUTTON   BUTTON    -->
+	
+	<!--Стиль стандартной кнопки с анимацией при нажатии и в боковом меню, а также с картинкой-->
+	<Style Selector="Button">
+		<Setter Property="Background" Value="{DynamicResource ButtonBackgroundGradient}"/>
+		<Setter Property="CornerRadius" Value="10"/>
+		<Setter Property="Foreground" Value="{DynamicResource PrimaryButtonForeground}"/>
+		<Setter Property="Padding" Value="10"/>
+		<Setter Property="FontSize" Value="12"/>
+	</Style>
+
+	<Style Selector="Button.Secondary">
+		<Setter Property="Background" Value="{DynamicResource SecondaryButtonGradient}"/>
+		<Setter Property="CornerRadius" Value="8"/>
+		<Setter Property="Foreground" Value="{DynamicResource PrimaryButtonForeground}"/>
+		<Setter Property="Padding" Value="10"/>
+		<Setter Property="FontSize" Value="12"/>
+	</Style>
+
+	<!--Кнопка без заливки, при наведении будет заливка-->
+	<Style Selector="Button.TransparentButton">
+		<Setter Property="Background" Value="Transparent"/>
+		<Setter Property="Foreground" Value="{DynamicResource ButtonBackgroundGradient}"/>
+		<Setter Property="Padding" Value="5"/>
+		<Setter Property="TextBlock.TextDecorations" Value="Underline"/>
+	</Style>
+
+	<!--Кнопка которая IsEnabled true-->
+	<Style Selector="Button:disabled">
+		<Setter Property="Background" Value="{DynamicResource ButtonBackgroundGradient}" />
+		<Setter Property="Opacity" Value="0.6" />
+	</Style>
+
+	<Style Selector="Button:disabled /template/ ContentPresenter">
+		<Setter Property="Background" Value="{DynamicResource ButtonBackgroundGradient}"/>
+		<Setter Property="Foreground" Value="{DynamicResource PrimaryButtonForeground}"/>
+		<Setter Property="Opacity" Value="0.6" />
+	</Style>
+
+
+	<!--Базовый стиль текстблока-->
+	<!--По умолчанию стоит черный цвет. Если ставить другой, То изменится и тот что внутри кнопки-->
+	<Style Selector="TextBlock">
+		<Setter Property="FontSize" Value="12"/>
+	</Style>
+
+	<Style Selector="TextBlock.White">
+		<Setter Property="Foreground" Value="{DynamicResource PrimaryBackground}"/>
+	</Style>
+
+	<Style Selector="TextBlock.Title">
+		<Setter Property="Foreground" Value="{DynamicResource PrimaryForeground}"/>
+		<Setter Property="FontSize" Value="15"/>
+		<Setter Property="Margin" Value="20 10 10 10"/>
+		<Setter Property="VerticalAlignment" Value="Center"/>
+	</Style>
+
+	<!--Базовый стиль разделителя-->
+	<Style Selector="Separator">
+		<Setter Property="Background" Value="{DynamicResource PrimaryForeground}"/>
+	</Style>
+
+	<!--Стили для листбкоса-->
+	<Style Selector="ListBox">
+		<Setter Property="Background" Value="Transparent"/>
+		<Setter Property="BorderThickness" Value="0"/>
+		<Setter Property="Padding" Value="0"/>
+	</Style>
+
+	<Style Selector="ListBoxItem">
+		<Setter Property="Background" Value="Transparent"/>
+		<Setter Property="RenderTransform" Value="scale(1)"/>
+	</Style>
+
+	<Style Selector="ListBoxItem:pointerover /template/ ContentPresenter">
+		<Setter Property="Background" Value="Transparent"/>
+		<Setter Property="RenderTransform" Value="scale(1.015)"/>
+	</Style>
+
+	<Style Selector="ListBoxItem:pressed /template/ ContentPresenter">
+		<Setter Property="Background" Value="Transparent"/>
+		<Setter Property="RenderTransform" Value="scale(0.99)"/>
+	</Style>
+
+	<Style Selector="ListBoxItem:selected /template/ ContentPresenter">
+		<Setter Property="Background" Value="Transparent"/>
+	</Style>
+
+	
+	<!--Стиль для наведение курсора на бордер-->
+	<Style Selector="Button.ContextMenuBorder">
+		<Setter Property="RenderTransform" Value="scale(1)"/>
+	</Style>
+
+	<Style Selector="Button.ContextMenuBorder:pointerover /template/ ContentPresenter">
+		<Setter Property="RenderTransform" Value="scale(1.015)"/>
+	</Style>
+
+
+	<!--Стиль для TextBox-->
+	<Style Selector="TextBox.Custom">
+		<Setter Property="Padding" Value="10"/>
+		<Setter Property="CornerRadius" Value="8"/>
+		<Setter Property="Margin" Value="10 0 10 0"/>
+	</Style>
+
+	<Style Selector="TextBox">
+		<Setter Property="Padding" Value="10"/>
+		<Setter Property="CornerRadius" Value="8"/>
+		<Setter Property="Margin" Value="0 0 10 0"/>
+		<Setter Property="Background" Value="{DynamicResource SecondaryMiddle}"/>
+		<Setter Property="Foreground" Value="{DynamicResource PrimaryForeground}"/>
+		<Setter Property="BorderBrush" Value="{DynamicResource SecondaryDark}"/>
+		<Setter Property="BorderThickness" Value="1"/>
+	</Style>
+
+	<Style Selector="TextBox:pointerover">
+		<Setter Property="BorderBrush" Value="{DynamicResource SecondaryLight}"/>
+	</Style>
+
+	<Style Selector="TextBox:focus /template/ Border#PART_BorderElement">
+		<Setter Property="Background" Value="{DynamicResource PrimaryBackground}"/>
+	</Style>
+
+	<Style Selector="TextBox:focus">
+		<Setter Property="Foreground" Value="{DynamicResource PrimaryForeground}"/>
+	</Style>
+
+
+	<Style Selector="TextBox:disabled">
+		<Setter Property="Foreground" Value="{DynamicResource SecondaryLight}"/>
+		<Setter Property="Background" Value="{DynamicResource SecondaryDark}"/>
+	</Style>
+
+
+	<!--Combobox-->
+	<Style Selector="ComboBox">
+		<Setter Property="Background" Value="{DynamicResource SecondaryMiddle}"/>
+		<Setter Property="Foreground" Value="{DynamicResource PrimaryForeground}"/>
+		<Setter Property="BorderBrush" Value="{DynamicResource SecondaryDark}"/>
+		<Setter Property="BorderThickness" Value="1"/>
+		<Setter Property="CornerRadius" Value="8"/>
+		<Setter Property="Padding" Value="8,4"/>
+		<Setter Property="FontSize" Value="12"/>
+	</Style>
+
+	<Style Selector="ComboBoxItem">
+		<Setter Property="Background" Value="{DynamicResource SecondaryDark}"/>
+		<Setter Property="Foreground" Value="{DynamicResource PrimaryForeground}"/>
+		<Setter Property="FontSize" Value="12"/>
+		<Setter Property="Padding" Value="8,4"/>
+	</Style>
+
+	<Style Selector="ComboBoxItem:pointerover">
+		<Setter Property="Background" Value="{DynamicResource SecondaryMiddleLight}"/>
+		<Setter Property="Foreground" Value="{DynamicResource PrimaryForeground}"/>
+	</Style>
+
+	<Style Selector="ComboBoxItem:selected">
+		<Setter Property="Background" Value="{DynamicResource Middle}"/>
+		<Setter Property="Foreground" Value="{DynamicResource PrimaryButtonForeground}"/>
+	</Style>
+
+	<Style Selector="ComboBox /template/ ToggleButton /template/ Path">
+		<Setter Property="Fill" Value="{DynamicResource PrimaryForeground}"/>
+	</Style>
+</Styles>
